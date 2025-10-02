@@ -1,0 +1,405 @@
+openapi: 3.0.2
+info:
+  version: 1.0.0
+  title: API Fromdle - Jeu de devinettes sur les boss FromSoftware
+  description: API REST pour un jeu de type Wordle avec les boss des jeux FromSoftware (Bloodborne, Sekiro, Dark Souls, Elden Ring)
+  contact:
+    name: "Sinfix"
+    email: sinfix069@gmail.com
+servers:
+  - url: http://localhost:3000
+    description: Serveur de développement local
+paths:
+  /:
+    get:
+      tags:
+        - Info
+      summary: Informations générales sur l'API
+      responses:
+        "200":
+          description: Informations sur l'API et le jeu
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiInfo"
+
+  /boss:
+    get:
+      tags:
+        - Boss
+      summary: Liste tous les boss
+      parameters:
+        - $ref: "#/components/parameters/pageParam"
+        - $ref: "#/components/parameters/limitParam"
+        - name: jeu
+          in: query
+          description: Filtrer par jeu
+          required: false
+          schema:
+            type: string
+            enum:
+              [
+                Bloodborne,
+                Sekiro,
+                "Dark Souls",
+                "Dark Souls II",
+                "Dark Souls III",
+                "Elden Ring",
+              ]
+        - name: optionnel
+          in: query
+          description: Filtrer par boss optionnels ou obligatoires
+          required: false
+          schema:
+            type: string
+            enum: [Oui, Non]
+        - name: dlc
+          in: query
+          description: Filtrer par boss de DLC
+          required: false
+          schema:
+            type: string
+            enum: [Oui, Non]
+      responses:
+        "200":
+          description: Liste des boss (noms uniquement pour ne pas spoiler)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  boss:
+                    type: array
+                    items:
+                      type: string
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+    post:
+      tags:
+        - Boss
+      summary: Ajoute un nouveau boss
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Boss"
+      responses:
+        "201":
+          description: Boss créé avec succès
+        "400":
+          description: Données invalides
+
+  /boss/{nom}:
+    get:
+      tags:
+        - Boss
+      summary: Détails d'un boss spécifique
+      parameters:
+        - name: nom
+          in: path
+          description: Nom du boss
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Informations détaillées du boss
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Boss"
+        "404":
+          description: Boss non trouvé
+    put:
+      tags:
+        - Boss
+      summary: Met à jour un boss
+      parameters:
+        - name: nom
+          in: path
+          description: Nom du boss
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Boss"
+      responses:
+        "200":
+          description: Boss mis à jour
+        "404":
+          description: Boss non trouvé
+    delete:
+      tags:
+        - Boss
+      summary: Supprime un boss
+      parameters:
+        - name: nom
+          in: path
+          description: Nom du boss
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Boss supprimé
+        "404":
+          description: Boss non trouvé
+
+  /game:
+    get:
+      tags:
+        - Jeu
+      summary: Commence une nouvelle partie
+      responses:
+        "200":
+          description: Informations de la partie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Partie"
+
+  /game/guess:
+    post:
+      tags:
+        - Jeu
+      summary: Soumet une proposition
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                proposition:
+                  type: string
+                  description: Nom du boss proposé
+              required:
+                - proposition
+      responses:
+        "200":
+          description: Résultat de la proposition
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResultatProposition"
+        "400":
+          description: Proposition invalide
+
+  /game/history:
+    get:
+      tags:
+        - Jeu
+      summary: Historique des propositions de la partie actuelle
+      responses:
+        "200":
+          description: Liste des propositions précédentes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  propositions:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ResultatProposition"
+
+  /stats:
+    get:
+      tags:
+        - Statistiques
+      summary: Statistiques globales du jeu
+      responses:
+        "200":
+          description: Statistiques du jeu
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Statistiques"
+
+components:
+  schemas:
+    ApiInfo:
+      type: object
+      properties:
+        nom:
+          type: string
+          example: "Fromdle API"
+        description:
+          type: string
+          example: "API pour le jeu de devinettes Soulsdle"
+        version:
+          type: string
+          example: "1.0.0"
+        totalBoss:
+          type: integer
+          example: 150
+
+    Boss:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifiant unique (peut être généré automatiquement)
+        nom:
+          type: string
+          description: Nom du boss
+          example: "Père Gascoigne"
+        jeu:
+          type: string
+          enum:
+            [
+              Bloodborne,
+              Sekiro,
+              "Demon's Souls",
+              "Dark Souls",
+              "Dark Souls II",
+              "Dark Souls III",
+              "Elden Ring",
+            ]
+          example: "Bloodborne"
+        genre:
+          type: string
+          enum: [Homme, Femme, Inconnu]
+          example: "Homme"
+        espece:
+          type: array
+          items:
+            type: string
+          example: ["Humain", "Bête"]
+        phases:
+          type: integer
+          minimum: 1
+          maximum: 5
+          example: 2
+        nombre:
+          type: string
+          description: Nombre d'entités (1, 2, 3, >10, etc.)
+          example: "1"
+        cutscene:
+          type: string
+          enum: [Oui, Non]
+          example: "Oui"
+        optionnel:
+          type: string
+          enum: [Oui, Non]
+          example: "Non"
+        dlc:
+          type: string
+          enum: [Oui, Non]
+          example: "Non"
+      required:
+        - nom
+        - jeu
+        - genre
+        - espece
+        - phases
+        - nombre
+        - cutscene
+        - optionnel
+        - dlc
+
+    Partie:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifiant unique de la partie
+        date:
+          type: string
+          format: date
+          description: Date de la partie (pour le mode quotidien)
+        bossSecret:
+          type: string
+          description: Nom du boss à deviner (masqué côté client)
+        terminee:
+          type: boolean
+
+    ResultatProposition:
+      type: object
+      properties:
+        proposition:
+          type: string
+          description: Nom du boss proposé
+        correct:
+          type: boolean
+          description: True si c'est la bonne réponse
+        indices:
+          type: object
+          properties:
+            jeu:
+              type: string
+              enum: [correct, incorrect]
+            genre:
+              type: string
+              enum: [correct, incorrect]
+            espece:
+              type: string
+              enum: [correct, partial, incorrect]
+            phases:
+              type: string
+              enum: [correct, incorrect]
+            nombre:
+              type: string
+              enum: [correct, partial, incorrect]
+            cutscene:
+              type: string
+              enum: [correct, incorrect]
+            optionnel:
+              type: string
+              enum: [correct, incorrect]
+            dlc:
+              type: string
+              enum: [correct, incorrect]
+
+    Statistiques:
+      type: object
+      properties:
+        totalPartiesJouees:
+          type: integer
+        bossLesPlusDevines:
+          type: array
+          items:
+            type: object
+            properties:
+              nom:
+                type: string
+              count:
+                type: integer
+
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+        limit:
+          type: integer
+        total:
+          type: integer
+        totalPages:
+          type: integer
+
+  parameters:
+    pageParam:
+      name: page
+      in: query
+      description: Numéro de page (commence à 1)
+      required: false
+      schema:
+        minimum: 1
+        type: integer
+        format: int32
+        default: 1
+
+    limitParam:
+      name: limit
+      in: query
+      description: Nombre maximum d'éléments par page
+      required: false
+      schema:
+        maximum: 100
+        minimum: 1
+        type: integer
+        format: int32
+        default: 20

@@ -1,0 +1,701 @@
+openapi: 3.0.2
+info:
+  version: 1.0.0
+  title: API de gestion de cours au département
+  description: Cette API est automatiquement générée
+  contact:
+    name: "Nicolas Hili, Philippe Martin, Francis Brunet-Manquat"
+    email: nicolas.hili@univ-grenoble-alpes.fr
+servers:
+- url: https://ppp.alwaysdata.net/
+paths:
+  /:
+    get:
+      tags:
+      - Departement
+      summary: Liste les informations du département
+      parameters: []
+      responses:
+        "200":
+          description: Un département est retourné
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Departement'
+  /chef_dep/:
+    get:
+      tags:
+      - Enseignant
+      summary: Retourne le chef du département
+      parameters: []
+      responses:
+        "200":
+          description: L'enseignant en charge du département est retourné
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enseignant'
+    put:
+      tags:
+      - Enseignant
+      summary: Modifie le chef du département
+      parameters: []
+      requestBody:
+        description: Un numéro de carte professionnelle de l'enseignant
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        "200":
+          description: Le chef du département a correctement été mis à jour.
+    delete:
+      tags:
+      - Enseignant
+      summary: Supprime un enseignant du département
+      parameters: []
+      responses:
+        "200":
+          description: L'enseignant a correctement été supprimé.
+  /etudiants/:
+    get:
+      tags:
+      - Etudiant
+      summary: Liste tous les étudiants
+      parameters:
+      - $ref: '#/components/parameters/pageParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        "200":
+          description: Une collection de numéros d'étudiants est retournée.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                x-content-type: application/json
+    post:
+      tags:
+      - Etudiant
+      summary: Ajoute un novel étudiant au département
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Etudiant'
+      responses:
+        "200":
+          description: L'étudiant a correctement été ajouté.
+  /etudiants/{ine}/:
+    get:
+      tags:
+      - Etudiant
+      summary: Retourne un étudiant en fonction du numéro d'étudiant (INE)
+      parameters:
+      - name: ine
+        in: path
+        description: Le numéro INE de l'étudiant.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Un unique étudiant est retourné
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Etudiant'
+        "404":
+          description: "Le numéro INE ne correspond à aucun étudiant"
+    put:
+      tags:
+      - Etudiant
+      summary: Met à jour les informations d'un étudiant
+      parameters:
+      - name: ine
+        in: path
+        description: Le numéro INE de l'étudiant.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Etudiant'
+      responses:
+        "200":
+          description: Les infomrations de l'étudiant ont été correctement mises à jour
+        "404":
+          description: "Le numéro INE ne correspond à aucun étudiant"
+    delete:
+      tags:
+      - Etudiant
+      summary: Retire un étudiant du département
+      parameters:
+      - name: ine
+        in: path
+        description: Le numéro INE de l'étudiant.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: L'étudiant a été correctement retiré du département.
+        "404":
+          description: "Le numéro INE ne correspond à aucun étudiant"
+  /etudiants/{ine}/modules_suivis/:
+    get:
+      tags:
+      - Module
+      summary: Liste tous les modules suivis par un étudiant
+      parameters:
+      - name: ine
+        in: path
+        description: Le numéro INE de l'étudiant.
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/pageParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        "200":
+          description: Une collection de modules est retournée.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  type: string
+        "404":
+          description: "Le numéro INE ne correspond à aucun étudiant"
+    put:
+      tags:
+      - Module
+      summary: Met à jour les modules suivis par un étudiant
+      parameters:
+      - name: ine
+        in: path
+        description: Le numéro INE de l'étudiant.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: An array of uniq ids (property code_module)
+        content:
+          application/json:
+            schema:
+              type: array
+              items: 
+                type: string
+      responses:
+        "200":
+          description: La liste des modules a correctement été mise à jour.
+        "404":
+          description: "Le numéro INE ne correspond à aucun étudiant"
+  /enseignants/:
+    get:
+      tags:
+      - Enseignant
+      summary: Liste tous les enseignants
+      parameters:
+      - $ref: '#/components/parameters/pageParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        "200":
+          description: Une collection de numéros de carte professionnelle est retournée
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+    post:
+      tags:
+      - Enseignant
+      summary: Ajoute un nouvel enseignant au département
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Enseignant'
+      responses:
+        "200":
+          description: L'enseignant a correctement été ajouté.
+  /enseignants/{num_carte_pro}/:
+    get:
+      tags:
+      - Enseignant
+      summary: Retourne un enseignant
+      parameters:
+      - name: num_carte_pro
+        in: path
+        description: Numéro de carte professionnelle
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Un enseignant est retourné
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enseignant'
+        "404":
+          description: Le numéro de carte professionnelle ne correspond à aucun enseignant
+    put:
+      tags:
+      - Enseignant
+      summary: Met à jour un enseignant
+      parameters:
+      - name: num_carte_pro
+        in: path
+        description: Numéro de carte professionnelle
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Enseignant'
+      responses:
+        "200":
+          description: L'enseignant est mis à jour
+        "404":
+          description: Le numéro de carte professionnelle ne correspond à aucun enseignant
+    delete:
+      tags:
+      - Enseignant
+      summary: Retire l'enseignant du département
+      parameters:
+      - name: num_carte_pro
+        in: path
+        description: Numéro de carte professionnelle
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: L'enseignant a bien été retiré
+        "404":
+          description: Le numéro de carte professionnelle ne correspond à aucun enseignant
+  /enseignants/{num_carte_pro}/modules_enseignes/:
+    get:
+      tags:
+      - Module
+      summary: Liste les modules enseignés par un enseignant
+      parameters:
+      - name: num_carte_pro
+        in: path
+        description: Numéro de carte professionnelle
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/pageParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        "200":
+          description: Une collection de codes de module est retournée 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "404":
+          description: Le numéro de carte professionnelle ne correspond à aucun enseignant
+    put:
+      tags:
+      - Module
+      summary: Met à jour la liste des modules enseignés
+      parameters:
+      - name: num_carte_pro
+        in: path
+        description: Numéro de carte professionnelle
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Un tableau de code de modules
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        "200":
+          description: La liste des modules enseignés a correctement été mis à jour
+        "404":
+          description: Le numéro de carte professionnelle ne correspond à aucun enseignant
+  /modules/:
+    get:
+      tags:
+      - Module
+      summary: Liste l'ensembe des modules enseignés au département
+      parameters:
+      - $ref: '#/components/parameters/pageParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        "200":
+          description: Une collection de code de modules est retournée
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+    post:
+      tags:
+      - Module
+      summary: Créer un nouvel module
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Module'
+      responses:
+        "200":
+          description: Le module a correctement été créé
+  /modules/{code_module}/:
+    get:
+      tags:
+      - Module
+      summary: Liste les informations d'un module
+      parameters:
+      - name: code_module
+        in: path
+        description: Le code du module.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Un module est retourné
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+        "404":
+          description: Le code ne correspond à aucun module
+    put:
+      tags:
+      - Module
+      summary: Met à jour un module
+      parameters:
+      - name: code_module
+        in: path
+        description: Le code du module.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Module'
+      responses:
+        "200":
+          description: Le module a été mis à jour.
+        "404":
+          description: Le code ne correspond à aucun module.
+    delete:
+      tags:
+      - Module
+      summary: Supprime un module
+      parameters:
+      - name: code_module
+        in: path
+        description: Le code du module.
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Le module a été correctement supprimé
+        "404":
+          description: Le code ne correspond à aucun module
+  /modules/{code_module}/enseignants/:
+    get:
+      tags:
+      - Enseignant
+      summary: Liste l'ensemble des enseignants enseignant un module
+      parameters:
+      - name: code_module
+        in: path
+        description: Le code du module.
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/pageParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        "200":
+          description: Une collection de numéros de carte professionnelle est retourné
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "404":
+          description: Le code ne correspond à aucun module
+    put:
+      tags:
+      - Enseignant
+      summary: Met à jour les enseignants d'un module
+      parameters:
+      - name: code_module
+        in: path
+        description: Le code du module.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Une collection de numéros de carte professionnelle
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        "200":
+          description: La liste des enseignants d'un module a été mise à jour
+        "404":
+          description: Le code ne correspond à aucun module
+  /modules/{code_module}/etudiants_enregistres/:
+    get:
+      tags:
+      - Etudiant
+      summary: Liste l'ensemble des étudiants enregistrés à un module
+      parameters:
+      - name: code_module
+        in: path
+        description: Le code du module.
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/pageParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        "200":
+          description: Une collection de numéros étudiant INE est retournée
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        "404":
+          description: Le code ne correspond à aucun module
+    put:
+      tags:
+      - Etudiant
+      summary: Met à jour la liste des étudiants enregistrés à un cours
+      parameters:
+      - name: code_module
+        in: path
+        description: Le code du module.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Une collection de numéros étudiants INE
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+      responses:
+        "200":
+          description: La liste des étudiants a été correctementm mise à jour
+        "404":
+          description: Le code ne correspond à aucun module
+  /modules/{code_module}/epreuves/:
+    get:
+      tags:
+      - Epreuve
+      summary: Liste l'ensemble des épreuves d'un module
+      parameters:
+      - name: code_module
+        in: path
+        description: Le code du module.
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/pageParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        "200":
+          description: Un ensemble d'épreuves du module
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                x-content-type: application/json
+        "404":
+          description: Le code ne correspond à aucun module.
+    post:
+      tags:
+      - Epreuve
+      summary: Crée une nouvelle époreuve
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Epreuve'
+      responses:
+        "200":
+          description: L'épreuve a été correctement créée
+  /modules/{code_module}/epreuves/{type_epreuve}/:
+    get:
+      tags:
+      - Epreuve
+      summary: Retrouve toutes les informations à propos d'une épreuve d'un module
+      parameters:
+      - name: code_module
+        in: path
+        description: Le code du module
+        required: true
+        schema:
+          type: string
+      - name: type_epreuve
+        in: path
+        description: Le type de l'épreuve
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Une épreuve est retournée
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Epreuve'
+        "404":
+          description: Le code ne correspond à aucun module ou le type d'épreuve n'est pas définie pour ce module.
+    put:
+      tags:
+      - Epreuve
+      summary: Met à jour une épreuve
+      parameters:
+      - name: type_epreuve
+        in: path
+        description: Le type de l'épreuve
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Epreuve'
+      responses:
+        "200":
+          description: L'épreuve a correctement été mise à jour
+        "404":
+          description: Le code ne correspond à aucun module ou le type d'épreuve n'est pas définie pour ce module.
+    delete:
+      tags:
+      - Epreuve
+      summary: Supprime une épreuve du module
+      parameters:
+      - name: type_epreuve
+        in: path
+        description: Le type de l'épreuve
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: L'époreuve a été correctement supprimée
+        "404":
+          description: Le code ne correspond à aucun module ou le type d'épreuve n'est pas définie pour ce module.
+components:
+  schemas:
+    Departement:
+      type: object
+      properties:
+        nom:
+          type: string
+    Personne:
+      type: object
+      properties:
+        prenom:
+          type: string
+        nom:
+          type: string
+        email:
+          type: array
+          items:
+            type: string
+        aneeDeNaissance:
+          type: string
+    Etudiant:
+      allOf:
+      - $ref: '#/components/schemas/Personne'
+      - type: object
+        properties:
+          ine:
+            type: string
+    Enseignant:
+      allOf:
+      - $ref: '#/components/schemas/Personne'
+      - type: object
+        properties:
+          bureau:
+            type: string
+          num_carte_pro:
+            type: string
+          categorie:
+            type: string
+    Module:
+      type: object
+      properties:
+        description:
+          type: string
+        code_module:
+          type: string
+        nom:
+          type: string
+        coefficient:
+          type: integer
+    Epreuve:
+      type: object
+      properties:
+        coefficient:
+          type: integer
+        type_epreuve:
+          type: string
+  parameters:
+    pageParam:
+      name: page
+      in: query
+      description: Nombre d'éléments à sauter avant de retourner le résultats.
+      required: false
+      schema:
+        minimum: 0
+        type: integer
+        format: int32
+        default: 0
+    limitParam:
+      name: limit
+      in: query
+      description: Nombre maximum d'éléments à retourner.
+      required: false
+      schema:
+        maximum: 100
+        minimum: 1
+        type: integer
+        format: int32
+        default: 20
