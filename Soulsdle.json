@@ -5,7 +5,7 @@
     "genre": "Inconnu",
     "espece": ["Bête"],
     "phases": 1,
-    "nombre": "1",
+    "nombre": 1,
     "cutscene": "Non",
     "optionnel": "Oui",
     "dlc": "Non"
@@ -16,7 +16,7 @@
     "genre": "Homme",
     "espece": ["Humain", "Bête"],
     "phases": 2,
-    "nombre": "1",
+    "nombre": 1,
     "cutscene": "Oui",
     "optionnel": "Non",
     "dlc": "Non"
@@ -27,7 +27,7 @@
     "genre": "Inconnu",
     "espece": ["Bête"],
     "phases": 1,
-    "nombre": "1",
+    "nombre": 1,
     "cutscene": "Non",
     "optionnel": "Oui",
     "dlc": "Non"

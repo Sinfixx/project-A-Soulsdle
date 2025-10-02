@@ -1,7 +1,7 @@
 openapi: 3.0.2
 info:
   version: 1.0.0
-  title: API Fromdle - Jeu de devinettes sur les boss FromSoftware
+  title: API Soulsdle - Jeu de devinettes sur les boss FromSoftware
   description: API REST pour un jeu de type Wordle avec les boss des jeux FromSoftware (Bloodborne, Sekiro, Dark Souls, Elden Ring)
   contact:
     name: "Sinfix"
@@ -225,7 +225,7 @@ components:
       properties:
         nom:
           type: string
-          example: "Fromdle API"
+          example: "Soulsdle API"
         description:
           type: string
           example: "API pour le jeu de devinettes Soulsdle"
@@ -239,12 +239,9 @@ components:
     Boss:
       type: object
       properties:
-        id:
-          type: string
-          description: Identifiant unique (peut être généré automatiquement)
         nom:
           type: string
-          description: Nom du boss
+          description: Nom du boss (identifiant unique)
           example: "Père Gascoigne"
         jeu:
           type: string
@@ -271,12 +268,12 @@ components:
         phases:
           type: integer
           minimum: 1
-          maximum: 5
+          maximum: 3
           example: 2
         nombre:
-          type: string
-          description: Nombre d'entités (1, 2, 3, >10, etc.)
-          example: "1"
+          type: integer
+          description: Nombre d'entités dans le combat
+          example: 1
         cutscene:
           type: string
           enum: [Oui, Non]
@@ -306,10 +303,6 @@ components:
         id:
           type: string
           description: Identifiant unique de la partie
-        date:
-          type: string
-          format: date
-          description: Date de la partie (pour le mode quotidien)
         bossSecret:
           type: string
           description: Nom du boss à deviner (masqué côté client)
@@ -342,7 +335,7 @@ components:
               enum: [correct, incorrect]
             nombre:
               type: string
-              enum: [correct, partial, incorrect]
+              enum: [correct, incorrect]
             cutscene:
               type: string
               enum: [correct, incorrect]
