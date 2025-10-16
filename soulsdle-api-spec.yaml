@@ -2,7 +2,7 @@ openapi: 3.0.2
 info:
   version: 1.0.0
   title: API Soulsdle - Jeu de devinettes sur les boss FromSoftware
-  description: API REST pour un jeu de type Wordle avec les boss des jeux FromSoftware (Bloodborne, Sekiro, Dark Souls, Elden Ring)
+  description: API REST pour un jeu de type Wordle avec les boss des jeux FromSoftware (Bloodborne, Sekiro, Dark Souls III)
   contact:
     name: "Sinfix"
     email: sinfix069@gmail.com
@@ -148,7 +148,7 @@ paths:
         "404":
           description: Boss non trouvé
 
-  /game:
+  /jeu:
     get:
       tags:
         - Jeu
@@ -161,7 +161,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Partie"
 
-  /game/guess:
+  /jeu/guess:
     post:
       tags:
         - Jeu
@@ -187,23 +187,299 @@ paths:
         "400":
           description: Proposition invalide
 
-  /game/history:
+  /souls:
     get:
       tags:
-        - Jeu
-      summary: Historique des propositions de la partie actuelle
+        - Souls
+      summary: Liste tous les Souls
+      parameters:
+        - $ref: "#/components/parameters/pageParam"
+        - $ref: "#/components/parameters/limitParam"
       responses:
         "200":
-          description: Liste des propositions précédentes
+          description: Liste des Souls
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  propositions:
+                  souls:
                     type: array
                     items:
-                      $ref: "#/components/schemas/ResultatProposition"
+                      $ref: "#/components/schemas/Souls"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+    post:
+      tags:
+        - Souls
+      summary: Ajoute un nouveau Souls
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Souls"
+      responses:
+        "201":
+          description: Souls créé avec succès
+
+  /souls/{id}:
+    get:
+      tags:
+        - Souls
+      summary: Détails d'un Souls spécifique
+      parameters:
+        - name: id
+          in: path
+          description: ID du Souls
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Informations détaillées du jeu
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Souls"
+        "404":
+          description: Jeu non trouvé
+    put:
+      tags:
+        - Souls
+      summary: Met à jour un Souls
+      parameters:
+        - name: id
+          in: path
+          description: ID du Souls
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Souls"
+      responses:
+        "200":
+          description: Souls mis à jour
+        "404":
+          description: Souls non trouvé
+    delete:
+      tags:
+        - Souls
+      summary: Supprime un Souls
+      parameters:
+        - name: id
+          in: path
+          description: ID du Souls
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Souls supprimé
+        "404":
+          description: Souls non trouvé
+
+  /joueurs:
+    get:
+      tags:
+        - Joueurs
+      summary: Liste tous les joueurs
+      parameters:
+        - $ref: "#/components/parameters/pageParam"
+        - $ref: "#/components/parameters/limitParam"
+      responses:
+        "200":
+          description: Liste des joueurs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  joueurs:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Joueur"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+    post:
+      tags:
+        - Joueurs
+      summary: Crée un nouveau joueur
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Joueur"
+      responses:
+        "201":
+          description: Joueur créé avec succès
+
+  /joueurs/{id}:
+    get:
+      tags:
+        - Joueurs
+      summary: Détails d'un joueur spécifique
+      parameters:
+        - name: id
+          in: path
+          description: ID du joueur
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Informations détaillées du joueur
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Joueur"
+        "404":
+          description: Joueur non trouvé
+    put:
+      tags:
+        - Joueurs
+      summary: Met à jour un joueur
+      parameters:
+        - name: id
+          in: path
+          description: ID du joueur
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Joueur"
+      responses:
+        "200":
+          description: Joueur mis à jour
+        "404":
+          description: Joueur non trouvé
+    delete:
+      tags:
+        - Joueurs
+      summary: Supprime un joueur
+      parameters:
+        - name: id
+          in: path
+          description: ID du joueur
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Joueur supprimé
+        "404":
+          description: Joueur non trouvé
+
+  /parties:
+    get:
+      tags:
+        - Parties
+      summary: Liste toutes les parties
+      parameters:
+        - $ref: "#/components/parameters/pageParam"
+        - $ref: "#/components/parameters/limitParam"
+        - name: joueurId
+          in: query
+          description: Filtrer par joueur
+          required: false
+          schema:
+            type: string
+        - name: reussie
+          in: query
+          description: Filtrer par statut de réussite
+          required: false
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Liste des parties
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  parties:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Partie"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+    post:
+      tags:
+        - Parties
+      summary: Crée une nouvelle partie
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Partie"
+      responses:
+        "201":
+          description: Partie créée avec succès
+
+  /parties/{id}:
+    get:
+      tags:
+        - Parties
+      summary: Détails d'une partie spécifique
+      parameters:
+        - name: id
+          in: path
+          description: ID de la partie
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Informations détaillées de la partie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Partie"
+        "404":
+          description: Partie non trouvée
+    put:
+      tags:
+        - Parties
+      summary: Met à jour une partie
+      parameters:
+        - name: id
+          in: path
+          description: ID de la partie
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Partie"
+      responses:
+        "200":
+          description: Partie mise à jour
+        "404":
+          description: Partie non trouvée
+    delete:
+      tags:
+        - Parties
+      summary: Supprime une partie
+      parameters:
+        - name: id
+          in: path
+          description: ID de la partie
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Partie supprimée
+        "404":
+          description: Partie non trouvée
 
   /stats:
     get:
@@ -245,16 +521,7 @@ components:
           example: "Père Gascoigne"
         jeu:
           type: string
-          enum:
-            [
-              Bloodborne,
-              Sekiro,
-              "Demon's Souls",
-              "Dark Souls",
-              "Dark Souls II",
-              "Dark Souls III",
-              "Elden Ring",
-            ]
+          enum: [Bloodborne, Sekiro, "Dark Souls III"]
           example: "Bloodborne"
         genre:
           type: string
@@ -303,11 +570,39 @@ components:
         id:
           type: string
           description: Identifiant unique de la partie
+          example: "partie-001"
+        dateDebut:
+          type: string
+          format: date-time
+          description: Date et heure de début de la partie
+          example: "2024-01-15T10:30:00Z"
+        dateFin:
+          type: string
+          format: date-time
+          description: Date et heure de fin de la partie
+          example: "2024-01-15T10:45:00Z"
         bossSecret:
           type: string
-          description: Nom du boss à deviner (masqué côté client)
+          description: Nom du boss à deviner
+          example: "Père Gascoigne"
+        tentatives:
+          type: integer
+          description: Nombre de tentatives utilisées
+          example: 4
         terminee:
           type: boolean
+          description: Si la partie est terminée (boss trouvé)
+          example: true
+        joueurId:
+          type: string
+          description: ID du joueur
+          example: "joueur-001"
+      required:
+        - id
+        - dateDebut
+        - bossSecret
+        - joueurId
+        - terminee
 
     ResultatProposition:
       type: object
@@ -349,17 +644,130 @@ components:
     Statistiques:
       type: object
       properties:
-        totalPartiesJouees:
+        id:
+          type: string
+          description: Identifiant des statistiques
+          example: "stats-globales"
+        totalParties:
           type: integer
-        bossLesPlusDevines:
+          description: Nombre total de parties jouées
+          example: 150
+        totalJoueurs:
+          type: integer
+          description: Nombre total de joueurs inscrits
+          example: 25
+        bossPlusDevine:
+          type: string
+          description: Nom du boss le plus deviné
+          example: "Père Gascoigne"
+        moyenneTentatives:
+          type: number
+          format: float
+          description: Moyenne des tentatives par partie
+          example: 4.2
+        tauxCompletion:
+          type: number
+          format: float
+          description: Taux de parties terminées
+          example: 0.75
+        derniereMaj:
+          type: string
+          format: date-time
+          description: Dernière mise à jour des statistiques
+          example: "2024-01-15T12:00:00Z"
+      required:
+        - id
+        - totalParties
+        - totalJoueurs
+        - derniereMaj
+
+    Souls:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifiant unique du jeu
+          example: "bloodborne"
+        nom:
+          type: string
+          description: Nom complet du jeu
+          example: "Bloodborne"
+        annee:
+          type: integer
+          description: Année de sortie
+          example: 2015
+        developpeur:
+          type: string
+          example: "FromSoftware"
+        genre:
+          type: string
+          example: "Action RPG"
+        plateforme:
           type: array
           items:
-            type: object
-            properties:
-              nom:
-                type: string
-              count:
-                type: integer
+            type: string
+          example: ["PS4", "Xbox One", "PC"]
+      required:
+        - id
+        - nom
+        - annee
+        - developpeur
+        - genre
+        - plateforme
+
+    Joueur:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identifiant unique du joueur
+          example: "joueur-001"
+        pseudo:
+          type: string
+          description: Pseudonyme du joueur
+          example: "SoulsHunter"
+        dateInscription:
+          type: string
+          format: date-time
+          description: Date d'inscription
+          example: "2024-01-01T00:00:00Z"
+        partiesJouees:
+          type: integer
+          description: Nombre total de parties jouées
+          example: 15
+        partiesTerminees:
+          type: integer
+          description: Nombre de parties terminées (boss trouvé)
+          example: 12
+        meilleurScore:
+          type: integer
+          description: Meilleur score (moins de tentatives)
+          example: 2
+        bossFavoris:
+          type: array
+          items:
+            type: string
+          description: Liste des noms des boss favoris
+          example: ["Père Gascoigne", "Genichiro Ashina"]
+        streakActuelle:
+          type: integer
+          description: Nombre de jours consécutifs avec au moins une partie terminée
+          example: 5
+        meilleureStreak:
+          type: integer
+          description: Record de jours consécutifs avec au moins une partie terminée
+          example: 12
+        dernierJourJoue:
+          type: string
+          format: date
+          description: Dernier jour où le joueur a terminé une partie (format YYYY-MM-DD)
+          example: "2024-01-15"
+      required:
+        - id
+        - pseudo
+        - dateInscription
+        - partiesJouees
+        - partiesTerminees
 
     Pagination:
       type: object
