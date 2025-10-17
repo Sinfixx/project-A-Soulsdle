@@ -496,7 +496,7 @@
       "dlc": "Non"
     },
     {
-      "nom": "Lothric, Prince Cadet et Lorian, Prince Ainé",
+      "nom": "Lothric, Prince Cadet et Lorian, Prince Aîné",
       "jeu": "Dark Souls III",
       "genre": "Homme",
       "espece": ["Humain", "Mort-vivant"],
@@ -529,7 +529,7 @@
       "dlc": "Non"
     },
     {
-      "nom": "Champion Gundyr",
+      "nom": "Gundyr le Champion",
       "jeu": "Dark Souls III",
       "genre": "Homme",
       "espece": ["Humain", "Mort-vivant"],
@@ -551,12 +551,12 @@
       "dlc": "Non"
     },
     {
-      "nom": "Champion de la Borée",
+      "nom": "Veilleurs des Abysses",
       "jeu": "Dark Souls III",
       "genre": "Homme",
       "espece": ["Humain", "Mort-vivant"],
       "phases": 2,
-      "nombre": 1,
+      "nombre": 3,
       "cutscene": "Oui",
       "optionnel": "Non",
       "dlc": "Non"
@@ -573,7 +573,7 @@
       "dlc": "Non"
     },
     {
-      "nom": "Arbre de la Corruption",
+      "nom": "Arbre Géant Maudit",
       "jeu": "Dark Souls III",
       "genre": "Inconnu",
       "espece": ["Abomination"],
@@ -584,7 +584,7 @@
       "dlc": "Non"
     },
     {
-      "nom": "Sage de Crystal",
+      "nom": "Sage de Cristal",
       "jeu": "Dark Souls III",
       "genre": "Homme",
       "espece": ["Humain", "Mort-vivant"],
@@ -598,7 +598,7 @@
       "nom": "Diacres des Profondeurs",
       "jeu": "Dark Souls III",
       "genre": "Inconnu",
-      "espece": ["Humain", "Mort-vivant", "Abomination"],
+      "espece": ["Humain", "Mort-vivant"],
       "phases": 2,
       "nombre": 20,
       "cutscene": "Non",
