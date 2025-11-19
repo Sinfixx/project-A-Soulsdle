@@ -8,8 +8,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Père Gascoigne",
@@ -19,8 +19,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Monstre affamé",
@@ -30,8 +30,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Vicaire Amelia",
@@ -41,8 +41,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Sorcières de Hemwick",
@@ -52,8 +52,8 @@
       "phases": 2,
       "nombre": 2,
       "cutscene": "Non",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Ombres de Yharnam",
@@ -63,8 +63,8 @@
       "phases": 3,
       "nombre": 3,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Rom, l'Araignée Stupide",
@@ -74,8 +74,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Celui qui renaquit",
@@ -85,8 +85,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Emissaires Celestes",
@@ -96,8 +96,8 @@
       "phases": 2,
       "nombre": 20,
       "cutscene": "Non",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Ebrietas, Fille du Cosmos",
@@ -107,8 +107,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Amygdala",
@@ -118,8 +118,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Micolash, l'hôte du cauchemar",
@@ -129,8 +129,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Nourrice de Mergo",
@@ -140,8 +140,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Paarl Sombrebête",
@@ -151,8 +151,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Martyr Logarius",
@@ -162,19 +162,19 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
-      "nom": "Gehrman, le premier chasseur",
+      "nom": "Gerhrman, le premier chasseur",
       "jeu": "Bloodborne",
       "genre": "Homme",
       "espece": ["Humain"],
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Présence Lunaire",
@@ -184,8 +184,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Ludwig, le Maudit/la Lame Sainte",
@@ -195,8 +195,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Oui"
+      "optionnel": "Obligatoire",
+      "dlc": "DLC"
     },
     {
       "nom": "Laurence, le Premier Vicaire",
@@ -206,8 +206,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Oui",
-      "dlc": "Oui"
+      "optionnel": "Optionnel",
+      "dlc": "DLC"
     },
     {
       "nom": "Expreriences Ratées",
@@ -217,8 +217,8 @@
       "phases": 1,
       "nombre": 4,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Oui"
+      "optionnel": "Obligatoire",
+      "dlc": "DLC"
     },
     {
       "nom": "Lady Maria de la Tour Astrale",
@@ -228,8 +228,8 @@
       "phases": 3,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Oui"
+      "optionnel": "Obligatoire",
+      "dlc": "DLC"
     },
     {
       "nom": "Orphelin de Kos",
@@ -239,8 +239,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Oui"
+      "optionnel": "Obligatoire",
+      "dlc": "DLC"
     },
     {
       "nom": "Gyoubu Masataka Oniwa",
@@ -250,8 +250,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Dame Papillon",
@@ -261,8 +261,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Genichiro Ashina",
@@ -272,8 +272,8 @@
       "phases": 3,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Singe gardien",
@@ -283,8 +283,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Singes Gardiens (Duo)",
@@ -294,8 +294,8 @@
       "phases": 1,
       "nombre": 2,
       "cutscene": "Non",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Singes du triptyque",
@@ -305,8 +305,8 @@
       "phases": 1,
       "nombre": 4,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Religieuse corrompue (Illusoire)",
@@ -316,8 +316,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Religieuse corrompue",
@@ -327,8 +327,8 @@
       "phases": 3,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Grand Shinobi - La Chouette",
@@ -338,8 +338,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Emma, la lame douce",
@@ -349,8 +349,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Isshin Ashina, le Maître Épéiste",
@@ -360,8 +360,8 @@
       "phases": 3,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Isshin Ashina",
@@ -371,8 +371,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Démon de la haine",
@@ -382,8 +382,8 @@
       "phases": 3,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "La Chouette (père)",
@@ -393,8 +393,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Dragon divin",
@@ -404,8 +404,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Iudex Gundyr",
@@ -415,8 +415,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Vordt de la Vallée Boréale",
@@ -426,8 +426,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Danseuse de la Vallée Boréale",
@@ -437,8 +437,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Grand Maître Sulyvahn",
@@ -448,8 +448,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Âme des Cendres",
@@ -459,8 +459,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Vouivre Ancienne",
@@ -470,8 +470,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Yhorm le Géant",
@@ -481,8 +481,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Aldritch, Dévoreur de Dieux",
@@ -492,8 +492,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Lothric, Prince Cadet et Lorian, Prince Aîné",
@@ -503,8 +503,8 @@
       "phases": 2,
       "nombre": 2,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Vieux Roi démon",
@@ -514,8 +514,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Roi sans nom",
@@ -525,8 +525,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Gundyr le Champion",
@@ -536,8 +536,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Oceiros, le Roi Illuminé",
@@ -547,8 +547,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Veilleurs des Abysses",
@@ -558,8 +558,8 @@
       "phases": 2,
       "nombre": 3,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Armure de Tueur de Dragons",
@@ -569,8 +569,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Arbre Géant Maudit",
@@ -580,8 +580,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Sage de Cristal",
@@ -591,8 +591,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Oui",
-      "dlc": "Non"
+      "optionnel": "Optionnel",
+      "dlc": "Base"
     },
     {
       "nom": "Diacres des Profondeurs",
@@ -602,8 +602,8 @@
       "phases": 2,
       "nombre": 20,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Chef Suprême Wolnir",
@@ -613,8 +613,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Non"
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
     },
     {
       "nom": "Soeur Friede",
@@ -624,8 +624,8 @@
       "phases": 3,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Oui"
+      "optionnel": "Obligatoire",
+      "dlc": "DLC"
     },
     {
       "nom": "Garde-Stèle du Champion",
@@ -635,8 +635,8 @@
       "phases": 1,
       "nombre": 2,
       "cutscene": "Non",
-      "optionnel": "Oui",
-      "dlc": "Oui"
+      "optionnel": "Optionnel",
+      "dlc": "DLC"
     },
     {
       "nom": "Démons blessé & abyssal - Prince démoniaque",
@@ -646,8 +646,8 @@
       "phases": 1,
       "nombre": 2,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Oui"
+      "optionnel": "Obligatoire",
+      "dlc": "DLC"
     },
     {
       "nom": "Aube, Lance de l'église",
@@ -657,8 +657,8 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Non",
-      "dlc": "Oui"
+      "optionnel": "Obligatoire",
+      "dlc": "DLC"
     },
     {
       "nom": "Gaël le Chevalier Esclave",
@@ -668,8 +668,8 @@
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
-      "optionnel": "Non",
-      "dlc": "Oui"
+      "optionnel": "Obligatoire",
+      "dlc": "DLC"
     },
     {
       "nom": "Midir, Fléau des Ténèbres",
@@ -679,8 +679,283 @@
       "phases": 1,
       "nombre": 1,
       "cutscene": "Non",
-      "optionnel": "Oui",
-      "dlc": "Oui"
+      "optionnel": "Optionnel",
+      "dlc": "DLC"
+    },
+    {
+      "nom": "Démon du Refuge",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Démon"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Non",
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Démon Taureau",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Démon", "Animal"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Non",
+      "optionnel": "Optionnel",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Gargouilles de la cloche",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Abomination", "Création"],
+      "phases": 1,
+      "nombre": 2,
+      "cutscene": "Oui",
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Démon Capra",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Démon", "Animal"],
+      "phases": 1,
+      "nombre": 3,
+      "cutscene": "Non",
+      "optionnel": "Optionnel",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Dragon Béant",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Dragon", "Animal", "Abomination"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Oui",
+      "optionnel": "Optionnel",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Quelaag, Sorcière du Chaos",
+      "jeu": "Dark Souls",
+      "genre": "Femme",
+      "espece": ["Humain", "Araignée"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Oui",
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Golem de Fer",
+      "jeu": "Dark Souls",
+      "genre": "Inconnu",
+      "espece": ["Création"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Non",
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Ornstein & Smough",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Humain"],
+      "phases": 2,
+      "nombre": 2,
+      "cutscene": "Oui",
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Gwendoline le Soleil Noir",
+      "jeu": "Dark Souls",
+      "genre": "Femme",
+      "espece": ["Dieu"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Oui",
+      "optionnel": "Optionnel",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Priscilla la Métissée",
+      "jeu": "Dark Souls",
+      "genre": "Femme",
+      "espece": ["Humain", "Esprit", "Dragon"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Non",
+      "optionnel": "Optionnel",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Démon Errant",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Démon", "Abomination"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Non",
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Décharge Incessante",
+      "jeu": "Dark Souls",
+      "genre": "Inconnu",
+      "espece": ["Création", "Abomination"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Non",
+      "optionnel": "Optionnel",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Démon Pyrosage",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Démon"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Non",
+      "optionnel": "Optionnel",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Démon Centipède",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Démon", "Animal"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Non",
+      "optionnel": "Optionnel",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Foyer du Chaos",
+      "jeu": "Dark Souls",
+      "genre": "Inconnu",
+      "espece": ["Abomination"],
+      "phases": 2,
+      "nombre": 3,
+      "cutscene": "Non",
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Papillon de Clair de Lune",
+      "jeu": "Dark Souls",
+      "genre": "Inconnu",
+      "espece": ["Animal", "Esprit"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Non",
+      "optionnel": "Optionnel",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Sif, le Grand Loup Gris",
+      "jeu": "Dark Souls",
+      "genre": "Inconnu",
+      "espece": ["Animal"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Oui",
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Virevent",
+      "jeu": "Dark Souls",
+      "genre": "Inconnu",
+      "espece": ["Spectre", "Esprit", "Création"],
+      "phases": 1,
+      "nombre": 3,
+      "cutscene": "Non",
+      "optionnel": "Optionnel",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Nito, le Seigneur des Tombes",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Abomination", "Mort-vivant", "Création"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Non",
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Seath l'écorché",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Dragon"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Non",
+      "optionnel": "Optionnel",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Gwen, Seigneur des Cendres",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Humain", "Mort-vivant", "Dieu"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Non",
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
+    },
+    {
+      "nom": "Gardien du Sanctuaire",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Animal", "Esprit"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Non",
+      "optionnel": "Obligatoire",
+      "dlc": "DLC"
+    },
+    {
+      "nom": "Artorias le Marcheur des Abysses",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Humain", "Abomination"],
+      "phases": 3,
+      "nombre": 1,
+      "cutscene": "Oui",
+      "optionnel": "Obligatoire",
+      "dlc": "DLC"
+    },
+    {
+      "nom": "Kalaamit, le Dragon Noir",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Dragon"],
+      "phases": 1,
+      "nombre": 1,
+      "cutscene": "Non",
+      "optionnel": "Optionnel",
+      "dlc": "DLC"
+    },
+    {
+      "nom": "Manus, le Père des Abysses",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Démon", "Abomination"],
+      "phases": 2,
+      "nombre": 1,
+      "cutscene": "Oui",
+      "optionnel": "Obligatoire",
+      "dlc": "DLC"
     }
   ],
   "souls": [
@@ -707,6 +982,14 @@
       "developpeur": "FromSoftware",
       "genre": "Action RPG",
       "plateforme": ["PS4", "Xbox One", "PC"]
+    },
+    {
+      "id": "ds1",
+      "nom": "Dark Souls",
+      "annee": 2015,
+      "developpeur": "FromSoftware",
+      "genre": "Action RPG",
+      "plateforme": ["PS3", "PS4", "PC"]
     }
   ],
   "parties": [
@@ -732,6 +1015,18 @@
       "streakActuelle": 5,
       "meilleureStreak": 12,
       "dernierJourJoue": "2024-01-15"
+    },
+    {
+      "id": "joueur-002",
+      "pseudo": "TenchiBastien",
+      "dateInscription": "2025-11-04T10:15:10.059Z",
+      "partiesJouees": 0,
+      "partiesTerminees": 0,
+      "meilleurScore": 0,
+      "bossFavoris": ["Dansseuse de la Vallée Boréale"],
+      "streakActuelle": 0,
+      "meilleureStreak": 0,
+      "dernierJourJoue": null
     }
   ],
   "statistiques": [

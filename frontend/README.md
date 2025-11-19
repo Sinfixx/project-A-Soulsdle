@@ -2,11 +2,12 @@
 
 ## Description
 
-Interface HTML/JS/CSS minimaliste pour tester l'API Soulsdle sans framework.
+Interface HTML/JS/CSS minimaliste et générée par IA pour tester l'API Soulsdle sans framework, et ainsi s'amuser à faire quelques parties avec ses amis 😇.
 
 ## Fonctionnalités
 
 ### 🎯 Onglet Jeu
+
 - Démarrer une nouvelle partie
 - Proposer un boss avec autocomplétion
 - Voir les indices colorés :
@@ -15,49 +16,59 @@ Interface HTML/JS/CSS minimaliste pour tester l'API Soulsdle sans framework.
   - 🔴 Rouge = Incorrect
 - Compteur de tentatives
 
-### 👹 Onglet Boss
+### ⚔ Onglet Boss
+
 - Liste de tous les boss
 - Filtres par jeu et DLC
 - Détails d'un boss spécifique
 
 ### 🎮 Onglet Souls
+
 - Liste des jeux FromSoftware disponibles
 
 ### 👤 Onglet Joueurs
+
 - Liste des joueurs
 - Créer un nouveau joueur
 
 ### 📊 Onglet Parties
+
 - Historique des parties jouées
 
 ### 📈 Onglet Stats
+
 - Statistiques globales du jeu
 
 ## Utilisation
 
 1. **Démarrer le backend** :
+
    ```bash
    cd backend
    npm start
    ```
 
 2. **Ouvrir le frontend** :
+
    - Ouvrir `index.html` directement dans votre navigateur
    - OU utiliser un serveur local :
+
      ```bash
      # Avec Python 3
      python -m http.server 8080
-     
+
      # Avec Node.js (npx)
      npx http-server -p 8080
      ```
+
    - Puis accéder à `http://localhost:8080`
 
 ## Configuration
 
 L'URL de l'API est définie dans le fichier `index.html` :
+
 ```javascript
-const API_URL = 'http://localhost:3000';
+const API_URL = "http://localhost:3000";
 ```
 
 Si votre backend tourne sur un autre port, modifiez cette valeur.

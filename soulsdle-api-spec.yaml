@@ -4,8 +4,8 @@ info:
   title: API Soulsdle - Jeu de devinettes sur les boss FromSoftware
   description: API REST pour un jeu de type Wordle avec les boss des jeux FromSoftware (Bloodborne, Sekiro, Dark Souls III)
   contact:
-    name: "Sinfix"
-    email: sinfix069@gmail.com
+    name: "Cyrian Torrejon | Sinfix"
+    email: cyrian.torrejon@etu.univ-grenoble-alpes.fr
 servers:
   - url: http://localhost:3000
     description: Serveur de développement local
@@ -52,14 +52,14 @@ paths:
           required: false
           schema:
             type: string
-            enum: [Oui, Non]
+            enum: [Optionnel, Obligatoire]
         - name: dlc
           in: query
           description: Filtrer par boss de DLC
           required: false
           schema:
             type: string
-            enum: [Oui, Non]
+            enum: [DLC, Base]
       responses:
         "200":
           description: Liste des boss (noms uniquement pour ne pas spoiler)
@@ -547,12 +547,12 @@ components:
           example: "Oui"
         optionnel:
           type: string
-          enum: [Oui, Non]
-          example: "Non"
+          enum: [Optionnel, Obligatoire]
+          example: "Obligatoire"
         dlc:
           type: string
-          enum: [Oui, Non]
-          example: "Non"
+          enum: [DLC, Base]
+          example: "Base"
       required:
         - nom
         - jeu

@@ -1,508 +1,712 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Soulsdle - Test API</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: Arial, sans-serif;
-            background: #1a1a1a;
-            color: #fff;
-            padding: 20px;
-            line-height: 1.6;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        background: #1a1a1a;
+        color: #fff;
+        padding: 20px;
+        line-height: 1.6;
+      }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #ff6b6b;
-        }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #ff6b6b;
+      }
 
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #333;
-        }
+      .tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #333;
+      }
 
-        .tab {
-            padding: 10px 20px;
-            background: #2a2a2a;
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            border-radius: 5px 5px 0 0;
-        }
+      .tab {
+        padding: 10px 20px;
+        background: #2a2a2a;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 5px 5px 0 0;
+      }
 
-        .tab.active {
-            background: #ff6b6b;
-        }
+      .tab.active {
+        background: #ff6b6b;
+      }
 
-        .tab-content {
-            display: none;
-            padding: 20px;
-            background: #2a2a2a;
-            border-radius: 0 5px 5px 5px;
-        }
+      .tab-content {
+        display: none;
+        padding: 20px;
+        background: #2a2a2a;
+        border-radius: 0 5px 5px 5px;
+      }
 
-        .tab-content.active {
-            display: block;
-        }
+      .tab-content.active {
+        display: block;
+      }
 
-        .api-section {
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #333;
-            border-radius: 5px;
-        }
+      .api-section {
+        margin-bottom: 30px;
+        padding: 20px;
+        background: #333;
+        border-radius: 5px;
+      }
 
-        h2 {
-            color: #ff6b6b;
-            margin-bottom: 15px;
-        }
+      h2 {
+        color: #ff6b6b;
+        margin-bottom: 15px;
+      }
 
-        button {
-            padding: 10px 20px;
-            background: #ff6b6b;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 5px;
-        }
+      button {
+        padding: 10px 20px;
+        background: #ff6b6b;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 5px;
+      }
 
-        button:hover {
-            background: #ff5252;
-        }
+      button:hover {
+        background: #ff5252;
+      }
 
-        button:disabled {
-            background: #666;
-            cursor: not-allowed;
-        }
+      button:disabled {
+        background: #666;
+        cursor: not-allowed;
+      }
 
-        input, select {
-            padding: 8px;
-            margin: 5px;
-            background: #1a1a1a;
-            color: #fff;
-            border: 1px solid #555;
-            border-radius: 3px;
-        }
+      input,
+      select {
+        padding: 8px;
+        margin: 5px;
+        background: #1a1a1a;
+        color: #fff;
+        border: 1px solid #555;
+        border-radius: 3px;
+      }
 
-        .result {
-            margin-top: 15px;
-            padding: 15px;
-            background: #1a1a1a;
-            border-radius: 5px;
-            font-family: monospace;
-            white-space: pre-wrap;
-            max-height: 400px;
-            overflow-y: auto;
-        }
+      .result {
+        margin-top: 15px;
+        padding: 15px;
+        background: #1a1a1a;
+        border-radius: 5px;
+        font-family: monospace;
+        white-space: pre-wrap;
+        max-height: 400px;
+        overflow-y: auto;
+      }
 
-        .game-board {
-            margin-top: 20px;
-        }
+      .game-board {
+        margin-top: 20px;
+      }
 
-        .guess-input {
-            width: 300px;
-            padding: 10px;
-            font-size: 16px;
-        }
+      .guess-input {
+        width: 300px;
+        padding: 10px;
+        font-size: 16px;
+      }
 
-        .propositions {
-            margin-top: 20px;
-        }
+      .propositions {
+        margin-top: 20px;
+      }
 
-        .proposition {
-            padding: 10px;
-            margin: 10px 0;
-            background: #1a1a1a;
-            border-radius: 5px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
-        }
+      .proposition {
+        padding: 10px;
+        margin: 10px 0;
+        background: #1a1a1a;
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        gap: 10px;
+      }
 
-        .prop-field {
-            padding: 8px;
-            border-radius: 3px;
-            text-align: center;
-            font-weight: bold;
-        }
+      .prop-field {
+        padding: 8px;
+        border-radius: 3px;
+        text-align: center;
+        font-weight: bold;
+      }
 
-        .correct {
-            background: #2ecc71;
-            color: #000;
-        }
+      .correct {
+        background: #2ecc71;
+        color: #000;
+      }
 
-        .partial {
-            background: #f39c12;
-            color: #000;
-        }
+      .partial {
+        background: #f39c12;
+        color: #000;
+      }
 
-        .incorrect {
-            background: #e74c3c;
-            color: #fff;
-        }
+      .incorrect {
+        background: #e74c3c;
+        color: #fff;
+      }
 
-        .success {
-            color: #2ecc71;
-            font-size: 1.2em;
-            font-weight: bold;
-            text-align: center;
-            padding: 20px;
-        }
+      .success {
+        color: #2ecc71;
+        font-size: 1.5em;
+        font-weight: bold;
+        text-align: center;
+        padding: 30px;
+        animation: slideInScale 0.6s ease-out;
+        background: linear-gradient(135deg, #222222 0%, #303030 100%);
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+      }
 
-        .info {
-            color: #3498db;
-            margin: 10px 0;
-        }
+      .success h2 {
+        color: #fff;
+        margin-bottom: 15px;
+        font-size: 2em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
 
-        .boss-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
-        }
+      .victory-boss {
+        font-size: 1.8em;
+        color: #ffd700;
+        margin: 20px 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      }
 
-        .boss-item {
-            padding: 10px;
-            background: #1a1a1a;
-            border-radius: 3px;
-            cursor: pointer;
-        }
+      .victory-stats {
+        margin-top: 20px;
+        font-size: 1em;
+        color: #ecf0f1;
+      }
 
-        .boss-item:hover {
-            background: #444;
+      @keyframes slideInScale {
+        0% {
+          transform: translateY(-50px) scale(0.8);
+          opacity: 0;
         }
+        60% {
+          transform: translateY(10px) scale(1.05);
+        }
+        100% {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+      }
 
-        datalist {
-            background: #1a1a1a;
+      @keyframes confetti {
+        0% {
+          transform: translateY(-100vh) rotate(0deg);
+          opacity: 1;
         }
+        100% {
+          transform: translateY(100vh) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+      .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        top: -10px;
+        z-index: 9999;
+        animation: confetti 3s linear forwards;
+      }
+
+      .replay-btn {
+        margin-top: 20px;
+        padding: 15px 30px;
+        font-size: 1.1em;
+        background: #2ecc71;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 0.3s;
+      }
+
+      .replay-btn:hover {
+        background: #27ae60;
+        transform: scale(1.05);
+      }
+
+      .info {
+        color: #3498db;
+        margin: 10px 0;
+      }
+
+      .boss-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .boss-item {
+        padding: 10px;
+        background: #1a1a1a;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      .boss-item:hover {
+        background: #444;
+      }
+
+      datalist {
+        background: #1a1a1a;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h1>🎮 Soulsdle - Test API</h1>
+      <h1>🎮 Soulsdle - Test API</h1>
 
-        <div class="tabs">
-            <button class="tab active" onclick="showTab('game')">🎯 Jeu</button>
-            <button class="tab" onclick="showTab('boss')">👹 Boss</button>
-            <button class="tab" onclick="showTab('souls')">🎮 Souls</button>
-            <button class="tab" onclick="showTab('joueurs')">👤 Joueurs</button>
-            <button class="tab" onclick="showTab('parties')">📊 Parties</button>
-            <button class="tab" onclick="showTab('stats')">📈 Stats</button>
+      <div class="tabs">
+        <button class="tab active" onclick="showTab('game')">🎯 Jeu</button>
+        <button class="tab" onclick="showTab('boss')">⚔ Boss</button>
+        <button class="tab" onclick="showTab('souls')">🎮 Souls</button>
+        <button class="tab" onclick="showTab('joueurs')">👤 Joueurs</button>
+        <button class="tab" onclick="showTab('parties')">📊 Parties</button>
+        <button class="tab" onclick="showTab('stats')">📈 Stats</button>
+      </div>
+
+      <!-- TAB JEU -->
+      <div id="tab-game" class="tab-content active">
+        <div class="api-section">
+          <h2>🎯 Jouer une partie</h2>
+          <button onclick="startGame()">Nouvelle Partie</button>
+          <div id="game-info" class="info"></div>
+
+          <div id="game-board" class="game-board" style="display: none">
+            <input
+              type="text"
+              id="boss-guess"
+              class="guess-input"
+              list="boss-names"
+              placeholder="Nom du boss..."
+            />
+            <datalist id="boss-names"></datalist>
+            <button onclick="submitGuess()">Proposer</button>
+
+            <div id="game-result"></div>
+            <div id="propositions" class="propositions"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB BOSS -->
+      <div id="tab-boss" class="tab-content">
+        <div class="api-section">
+          <h2>Liste des Boss</h2>
+          <button onclick="getBoss()">Charger tous les boss</button>
+          <select id="filter-jeu" onchange="getBoss()">
+            <option value="">Tous les jeux</option>
+            <option value="Bloodborne">Bloodborne</option>
+            <option value="Sekiro">Sekiro</option>
+            <option value="Dark Souls III">Dark Souls III</option>
+          </select>
+          <select id="filter-dlc" onchange="getBoss()">
+            <option value="">DLC: Tous</option>
+            <option value="DLC">DLC: Oui</option>
+            <option value="Base">DLC: Non</option>
+          </select>
+          <div id="result-boss" class="result"></div>
         </div>
 
-        <!-- TAB JEU -->
-        <div id="tab-game" class="tab-content active">
-            <div class="api-section">
-                <h2>🎯 Jouer une partie</h2>
-                <button onclick="startGame()">Nouvelle Partie</button>
-                <div id="game-info" class="info"></div>
-                
-                <div id="game-board" class="game-board" style="display: none;">
-                    <input type="text" id="boss-guess" class="guess-input" list="boss-names" placeholder="Nom du boss..." />
-                    <datalist id="boss-names"></datalist>
-                    <button onclick="submitGuess()">Proposer</button>
-                    
-                    <div id="game-result"></div>
-                    <div id="propositions" class="propositions"></div>
-                </div>
-            </div>
+        <div class="api-section">
+          <h2>Détails d'un Boss</h2>
+          <input type="text" id="boss-name" placeholder="Nom du boss" />
+          <button onclick="getBossDetail()">Voir détails</button>
+          <div id="result-boss-detail" class="result"></div>
+        </div>
+      </div>
+
+      <!-- TAB SOULS -->
+      <div id="tab-souls" class="tab-content">
+        <div class="api-section">
+          <h2>🎮 Liste des Souls</h2>
+          <button onclick="getSouls()">Charger les Souls</button>
+          <div id="result-souls" class="result"></div>
+        </div>
+      </div>
+
+      <!-- TAB JOUEURS -->
+      <div id="tab-joueurs" class="tab-content">
+        <div class="api-section">
+          <h2>👤 Liste des Joueurs</h2>
+          <button onclick="getJoueurs()">Charger les joueurs</button>
+          <div id="result-joueurs" class="result"></div>
         </div>
 
-        <!-- TAB BOSS -->
-        <div id="tab-boss" class="tab-content">
-            <div class="api-section">
-                <h2>👹 Liste des Boss</h2>
-                <button onclick="getBoss()">Charger tous les boss</button>
-                <select id="filter-jeu" onchange="getBoss()">
-                    <option value="">Tous les jeux</option>
-                    <option value="Bloodborne">Bloodborne</option>
-                    <option value="Sekiro">Sekiro</option>
-                    <option value="Dark Souls III">Dark Souls III</option>
-                </select>
-                <select id="filter-dlc" onchange="getBoss()">
-                    <option value="">DLC: Tous</option>
-                    <option value="Oui">DLC: Oui</option>
-                    <option value="Non">DLC: Non</option>
-                </select>
-                <div id="result-boss" class="result"></div>
-            </div>
-
-            <div class="api-section">
-                <h2>Détails d'un Boss</h2>
-                <input type="text" id="boss-name" placeholder="Nom du boss" />
-                <button onclick="getBossDetail()">Voir détails</button>
-                <div id="result-boss-detail" class="result"></div>
-            </div>
+        <div class="api-section">
+          <h2>Créer un Joueur</h2>
+          <input type="text" id="joueur-id" placeholder="ID (ex: joueur-002)" />
+          <input type="text" id="joueur-pseudo" placeholder="Pseudo" />
+          <button onclick="createJoueur()">Créer</button>
+          <div id="result-create-joueur" class="result"></div>
         </div>
+      </div>
 
-        <!-- TAB SOULS -->
-        <div id="tab-souls" class="tab-content">
-            <div class="api-section">
-                <h2>🎮 Liste des Souls</h2>
-                <button onclick="getSouls()">Charger les Souls</button>
-                <div id="result-souls" class="result"></div>
-            </div>
+      <!-- TAB PARTIES -->
+      <div id="tab-parties" class="tab-content">
+        <div class="api-section">
+          <h2>📊 Liste des Parties</h2>
+          <button onclick="getParties()">Charger les parties</button>
+          <div id="result-parties" class="result"></div>
         </div>
+      </div>
 
-        <!-- TAB JOUEURS -->
-        <div id="tab-joueurs" class="tab-content">
-            <div class="api-section">
-                <h2>👤 Liste des Joueurs</h2>
-                <button onclick="getJoueurs()">Charger les joueurs</button>
-                <div id="result-joueurs" class="result"></div>
-            </div>
-
-            <div class="api-section">
-                <h2>Créer un Joueur</h2>
-                <input type="text" id="joueur-id" placeholder="ID (ex: joueur-002)" />
-                <input type="text" id="joueur-pseudo" placeholder="Pseudo" />
-                <button onclick="createJoueur()">Créer</button>
-                <div id="result-create-joueur" class="result"></div>
-            </div>
+      <!-- TAB STATS -->
+      <div id="tab-stats" class="tab-content">
+        <div class="api-section">
+          <h2>📈 Statistiques Globales</h2>
+          <button onclick="getStats()">Charger les stats</button>
+          <div id="result-stats" class="result"></div>
         </div>
-
-        <!-- TAB PARTIES -->
-        <div id="tab-parties" class="tab-content">
-            <div class="api-section">
-                <h2>📊 Liste des Parties</h2>
-                <button onclick="getParties()">Charger les parties</button>
-                <div id="result-parties" class="result"></div>
-            </div>
-        </div>
-
-        <!-- TAB STATS -->
-        <div id="tab-stats" class="tab-content">
-            <div class="api-section">
-                <h2>📈 Statistiques Globales</h2>
-                <button onclick="getStats()">Charger les stats</button>
-                <div id="result-stats" class="result"></div>
-            </div>
-        </div>
+      </div>
     </div>
 
     <script>
-        const API_URL = 'http://localhost:3000';
-        let currentSession = null;
-        let allBossNames = [];
+      const API_URL = "http://localhost:3000";
+      let currentSession = null;
+      let allBossNames = [];
 
-        // Gestion des tabs
-        function showTab(tabName) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            
-            event.target.classList.add('active');
-            document.getElementById('tab-' + tabName).classList.add('active');
+      // Gestion des tabs
+      function showTab(tabName) {
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-content")
+          .forEach((c) => c.classList.remove("active"));
+
+        event.target.classList.add("active");
+        document.getElementById("tab-" + tabName).classList.add("active");
+      }
+
+      // Charger les noms de boss pour l'autocomplétion
+      async function loadBossNames() {
+        try {
+          const response = await fetch(`${API_URL}/boss?limit=100`);
+          const data = await response.json();
+          allBossNames = data.boss;
+
+          const datalist = document.getElementById("boss-names");
+          datalist.innerHTML = allBossNames
+            .map((name) => `<option value="${name}">`)
+            .join("");
+        } catch (error) {
+          console.error("Erreur:", error);
         }
+      }
 
-        // Charger les noms de boss pour l'autocomplétion
-        async function loadBossNames() {
-            try {
-                const response = await fetch(`${API_URL}/boss?limit=100`);
-                const data = await response.json();
-                allBossNames = data.boss;
-                
-                const datalist = document.getElementById('boss-names');
-                datalist.innerHTML = allBossNames.map(name => `<option value="${name}">`).join('');
-            } catch (error) {
-                console.error('Erreur:', error);
-            }
-        }
+      // JEU
+      async function startGame() {
+        try {
+          const response = await fetch(`${API_URL}/jeu`);
+          const data = await response.json();
+          currentSession = data.sessionId;
 
-        // JEU
-        async function startGame() {
-            try {
-                const response = await fetch(`${API_URL}/jeu`);
-                const data = await response.json();
-                currentSession = data.sessionId;
-                
-                document.getElementById('game-info').innerHTML = `
+          document.getElementById("game-info").innerHTML = `
                     <strong>Session ID:</strong> ${data.sessionId}<br>
                     <strong>Nombre de boss:</strong> ${data.nbBoss}<br>
                     <strong>Message:</strong> ${data.message}
                 `;
-                
-                document.getElementById('game-board').style.display = 'block';
-                document.getElementById('propositions').innerHTML = '';
-                document.getElementById('game-result').innerHTML = '';
-                document.getElementById('boss-guess').value = '';
-                
-                loadBossNames();
-            } catch (error) {
-                alert('Erreur: ' + error.message);
-            }
+
+          document.getElementById("game-board").style.display = "block";
+          document.getElementById("propositions").innerHTML = "";
+          document.getElementById("game-result").innerHTML = "";
+          document.getElementById("boss-guess").value = "";
+
+          // Réafficher les contrôles
+          document.getElementById("boss-guess").style.display = "inline-block";
+          document.querySelector(
+            'button[onclick="submitGuess()"]'
+          ).style.display = "inline-block";
+
+          loadBossNames();
+        } catch (error) {
+          alert("Erreur: " + error.message);
+        }
+      }
+
+      // Fonction pour créer des confettis
+      function createConfetti() {
+        const colors = [
+          "#ff6b6b",
+          "#4ecdc4",
+          "#45b7d1",
+          "#ffd700",
+          "#2ecc71",
+          "#e74c3c",
+          "#9b59b6",
+          "#f39c12",
+        ];
+        const confettiCount = 50;
+
+        for (let i = 0; i < confettiCount; i++) {
+          setTimeout(() => {
+            const confetti = document.createElement("div");
+            confetti.className = "confetti";
+            confetti.style.left = Math.random() * 100 + "%";
+            confetti.style.backgroundColor =
+              colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDuration = Math.random() * 2 + 2 + "s";
+            confetti.style.animationDelay = Math.random() * 0.5 + "s";
+            document.body.appendChild(confetti);
+
+            // Supprimer le confetti après l'animation
+            setTimeout(() => confetti.remove(), 3500);
+          }, i * 30);
+        }
+      }
+
+      async function submitGuess() {
+        const proposition = document.getElementById("boss-guess").value.trim();
+
+        if (!proposition) {
+          alert("Entrez un nom de boss !");
+          return;
         }
 
-        async function submitGuess() {
-            const proposition = document.getElementById('boss-guess').value.trim();
-            
-            if (!proposition) {
-                alert('Entrez un nom de boss !');
-                return;
-            }
+        if (!currentSession) {
+          alert("Commencez une partie d'abord !");
+          return;
+        }
 
-            if (!currentSession) {
-                alert('Commencez une partie d\'abord !');
-                return;
-            }
+        try {
+          // Récupérer les détails du boss proposé
+          const bossResponse = await fetch(
+            `${API_URL}/boss/${encodeURIComponent(proposition)}`
+          );
+          const bossData = await bossResponse.json();
 
-            try {
-                const response = await fetch(`${API_URL}/jeu/guess`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ sessionId: currentSession, proposition })
-                });
+          // Soumettre la proposition
+          const response = await fetch(`${API_URL}/jeu/guess`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ sessionId: currentSession, proposition }),
+          });
 
-                const data = await response.json();
+          const data = await response.json();
 
-                if (data.correct) {
-                    document.getElementById('game-result').innerHTML = `
+          displayProposition(data, bossData);
+
+          if (data.correct) {
+            // Animation de victoire
+            createConfetti();
+
+            document.getElementById("game-result").innerHTML = `
                         <div class="success">
-                            🎉 ${data.message}<br>
-                            Trouvé en ${data.tentatives} tentative(s) !
+                            <h2>🎉 VICTOIRE ! 🎉</h2>
+                            <div class="victory-boss">
+                                ${data.message
+                                  .replace("Bravo ! C'était bien ", "")
+                                  .replace(" !", "")}
+                            </div>
+                            <div class="victory-stats">
+                                ⚔️ Trouvé en <strong>${
+                                  data.tentatives
+                                }</strong> tentative(s) !<br>
+                                🏆 Boss: <strong>${bossData.nom}</strong><br>
+                                🎮 Jeu: <strong>${bossData.jeu}</strong>
+                            </div>
+                            <button class="replay-btn" onclick="startGame()">🔄 Nouvelle Partie</button>
                         </div>
                     `;
-                    document.getElementById('game-board').style.display = 'none';
-                } else {
-                    displayProposition(data);
-                    document.getElementById('boss-guess').value = '';
-                }
-            } catch (error) {
-                alert('Erreur: ' + error.message);
-            }
-        }
 
-        function displayProposition(data) {
-            const indices = data.indices;
-            const prop = document.createElement('div');
-            prop.className = 'proposition';
-            prop.innerHTML = `
-                <div><strong>${data.proposition}</strong><br>Tentative ${data.tentatives}</div>
-                <div class="prop-field ${indices.jeu}">Jeu<br>${indices.jeu}</div>
-                <div class="prop-field ${indices.genre}">Genre<br>${indices.genre}</div>
-                <div class="prop-field ${indices.espece}">Espèce<br>${indices.espece}</div>
-                <div class="prop-field ${indices.phases}">Phases<br>${indices.phases}</div>
-                <div class="prop-field ${indices.nombre}">Nombre<br>${indices.nombre}</div>
-                <div class="prop-field ${indices.cutscene}">Cutscene<br>${indices.cutscene}</div>
-                <div class="prop-field ${indices.optionnel}">Optionnel<br>${indices.optionnel}</div>
-                <div class="prop-field ${indices.dlc}">DLC<br>${indices.dlc}</div>
+            // Masquer l'input après un court délai pour voir la dernière proposition
+            setTimeout(() => {
+              document.getElementById("boss-guess").style.display = "none";
+              document.querySelector(
+                'button[onclick="submitGuess()"]'
+              ).style.display = "none";
+            }, 500);
+          } else {
+            document.getElementById("boss-guess").value = "";
+          }
+        } catch (error) {
+          alert("Erreur: " + error.message);
+        }
+      }
+
+      function displayProposition(data, bossData) {
+        const indices = data.indices;
+        const prop = document.createElement("div");
+        prop.className = "proposition";
+        prop.innerHTML = `
+                <div><strong>${data.proposition}</strong><br>Tentative ${
+          data.tentatives
+        }</div>
+                <div class="prop-field ${indices.jeu}">Jeu<br><strong>${
+          bossData.jeu
+        }</strong><br><small>${indices.jeu}</small></div>
+                <div class="prop-field ${indices.genre}">Genre<br><strong>${
+          bossData.genre
+        }</strong><br><small>${indices.genre}</small></div>
+                <div class="prop-field ${
+                  indices.espece
+                }">Espèce<br><strong>${bossData.espece.join(
+          ", "
+        )}</strong><br><small>${indices.espece}</small></div>
+                <div class="prop-field ${indices.phases}">Phases<br><strong>${
+          bossData.phases
+        }</strong><br><small>${indices.phases}</small></div>
+                <div class="prop-field ${indices.nombre}">Nombre<br><strong>${
+          bossData.nombre
+        }</strong><br><small>${indices.nombre}</small></div>
+                <div class="prop-field ${
+                  indices.cutscene
+                }">Cutscene<br><strong>${
+          bossData.cutscene
+        }</strong><br><small>${indices.cutscene}</small></div>
+                <div class="prop-field ${
+                  indices.optionnel
+                }">Facultativité<br><strong>${
+          bossData.optionnel
+        }</strong><br><small>${indices.optionnel}</small></div>
+                <div class="prop-field ${indices.dlc}">DLC<br><strong>${
+          bossData.dlc
+        }</strong><br><small>${indices.dlc}</small></div>
             `;
-            document.getElementById('propositions').prepend(prop);
+        document.getElementById("propositions").prepend(prop);
+      }
+
+      // BOSS
+      async function getBoss() {
+        const jeu = document.getElementById("filter-jeu").value;
+        const dlc = document.getElementById("filter-dlc").value;
+
+        let url = `${API_URL}/boss?limit=100`;
+        if (jeu) url += `&jeu=${jeu}`;
+        if (dlc) url += `&dlc=${dlc}`;
+
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          document.getElementById("result-boss").textContent = JSON.stringify(
+            data,
+            null,
+            2
+          );
+        } catch (error) {
+          document.getElementById("result-boss").textContent =
+            "Erreur: " + error.message;
         }
+      }
 
-        // BOSS
-        async function getBoss() {
-            const jeu = document.getElementById('filter-jeu').value;
-            const dlc = document.getElementById('filter-dlc').value;
-            
-            let url = `${API_URL}/boss?limit=100`;
-            if (jeu) url += `&jeu=${jeu}`;
-            if (dlc) url += `&dlc=${dlc}`;
-
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-                document.getElementById('result-boss').textContent = JSON.stringify(data, null, 2);
-            } catch (error) {
-                document.getElementById('result-boss').textContent = 'Erreur: ' + error.message;
-            }
+      async function getBossDetail() {
+        const name = document.getElementById("boss-name").value;
+        try {
+          const response = await fetch(
+            `${API_URL}/boss/${encodeURIComponent(name)}`
+          );
+          const data = await response.json();
+          document.getElementById("result-boss-detail").textContent =
+            JSON.stringify(data, null, 2);
+        } catch (error) {
+          document.getElementById("result-boss-detail").textContent =
+            "Erreur: " + error.message;
         }
+      }
 
-        async function getBossDetail() {
-            const name = document.getElementById('boss-name').value;
-            try {
-                const response = await fetch(`${API_URL}/boss/${encodeURIComponent(name)}`);
-                const data = await response.json();
-                document.getElementById('result-boss-detail').textContent = JSON.stringify(data, null, 2);
-            } catch (error) {
-                document.getElementById('result-boss-detail').textContent = 'Erreur: ' + error.message;
-            }
+      // SOULS
+      async function getSouls() {
+        try {
+          const response = await fetch(`${API_URL}/souls`);
+          const data = await response.json();
+          document.getElementById("result-souls").textContent = JSON.stringify(
+            data,
+            null,
+            2
+          );
+        } catch (error) {
+          document.getElementById("result-souls").textContent =
+            "Erreur: " + error.message;
         }
+      }
 
-        // SOULS
-        async function getSouls() {
-            try {
-                const response = await fetch(`${API_URL}/souls`);
-                const data = await response.json();
-                document.getElementById('result-souls').textContent = JSON.stringify(data, null, 2);
-            } catch (error) {
-                document.getElementById('result-souls').textContent = 'Erreur: ' + error.message;
-            }
+      // JOUEURS
+      async function getJoueurs() {
+        try {
+          const response = await fetch(`${API_URL}/joueurs`);
+          const data = await response.json();
+          document.getElementById("result-joueurs").textContent =
+            JSON.stringify(data, null, 2);
+        } catch (error) {
+          document.getElementById("result-joueurs").textContent =
+            "Erreur: " + error.message;
         }
+      }
 
-        // JOUEURS
-        async function getJoueurs() {
-            try {
-                const response = await fetch(`${API_URL}/joueurs`);
-                const data = await response.json();
-                document.getElementById('result-joueurs').textContent = JSON.stringify(data, null, 2);
-            } catch (error) {
-                document.getElementById('result-joueurs').textContent = 'Erreur: ' + error.message;
-            }
+      async function createJoueur() {
+        const id = document.getElementById("joueur-id").value;
+        const pseudo = document.getElementById("joueur-pseudo").value;
+
+        try {
+          const response = await fetch(`${API_URL}/joueurs`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              id,
+              pseudo,
+              dateInscription: new Date().toISOString(),
+              partiesJouees: 0,
+              partiesTerminees: 0,
+              meilleurScore: 0,
+              bossFavoris: [],
+            }),
+          });
+          const data = await response.json();
+          document.getElementById("result-create-joueur").textContent =
+            JSON.stringify(data, null, 2);
+        } catch (error) {
+          document.getElementById("result-create-joueur").textContent =
+            "Erreur: " + error.message;
         }
+      }
 
-        async function createJoueur() {
-            const id = document.getElementById('joueur-id').value;
-            const pseudo = document.getElementById('joueur-pseudo').value;
-
-            try {
-                const response = await fetch(`${API_URL}/joueurs`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        id,
-                        pseudo,
-                        dateInscription: new Date().toISOString(),
-                        partiesJouees: 0,
-                        partiesTerminees: 0,
-                        meilleurScore: 0,
-                        bossFavoris: []
-                    })
-                });
-                const data = await response.json();
-                document.getElementById('result-create-joueur').textContent = JSON.stringify(data, null, 2);
-            } catch (error) {
-                document.getElementById('result-create-joueur').textContent = 'Erreur: ' + error.message;
-            }
+      // PARTIES
+      async function getParties() {
+        try {
+          const response = await fetch(`${API_URL}/parties`);
+          const data = await response.json();
+          document.getElementById("result-parties").textContent =
+            JSON.stringify(data, null, 2);
+        } catch (error) {
+          document.getElementById("result-parties").textContent =
+            "Erreur: " + error.message;
         }
+      }
 
-        // PARTIES
-        async function getParties() {
-            try {
-                const response = await fetch(`${API_URL}/parties`);
-                const data = await response.json();
-                document.getElementById('result-parties').textContent = JSON.stringify(data, null, 2);
-            } catch (error) {
-                document.getElementById('result-parties').textContent = 'Erreur: ' + error.message;
-            }
+      // STATS
+      async function getStats() {
+        try {
+          const response = await fetch(`${API_URL}/stats`);
+          const data = await response.json();
+          document.getElementById("result-stats").textContent = JSON.stringify(
+            data,
+            null,
+            2
+          );
+        } catch (error) {
+          document.getElementById("result-stats").textContent =
+            "Erreur: " + error.message;
         }
-
-        // STATS
-        async function getStats() {
-            try {
-                const response = await fetch(`${API_URL}/stats`);
-                const data = await response.json();
-                document.getElementById('result-stats').textContent = JSON.stringify(data, null, 2);
-            } catch (error) {
-                document.getElementById('result-stats').textContent = 'Erreur: ' + error.message;
-            }
-        }
+      }
     </script>
-</body>
+  </body>
 </html>

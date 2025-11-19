@@ -4,6 +4,8 @@
 
 Soulsdle est un jeu de devinettes inspiré de Wordle, mais centré sur les boss des jeux Souls de FromSoftware (Bloodborne, Sekiro, Dark Souls, Elden Ring).
 
+Pour plus d'infos : https://fr.wikipedia.org/wiki/Souls
+
 ### Concept du jeu
 
 - Un boss est sélectionné aléatoirement
@@ -12,8 +14,6 @@ Soulsdle est un jeu de devinettes inspiré de Wordle, mais centré sur les boss 
   - 🟢 Vert : Propriété correcte
   - 🟡 Jaune : Propriété partiellement correcte (pour les espèces multiples)
   - 🔴 Rouge : Propriété incorrecte
-  - ⬆️ Flèche haute : Valeur plus élevée que la cible
-  - ⬇️ Flèche basse : Valeur plus faible que la cible
 
 ### Entités métier
 
@@ -23,9 +23,9 @@ Soulsdle est un jeu de devinettes inspiré de Wordle, mais centré sur les boss 
 - **jeu** : Jeu d'origine (Bloodborne, Sekiro, etc.)
 - **genre** : Homme, Femme, Inconnu
 - **espece** : Liste d'espèces (Humain, Bête, Grand Ancien, etc.)
-- **phases** : Nombre de phases du combat (1-3)
+- **phases** : Nombre de phases du combat (de 1 à 3)
 - **nombre** : Nombre d'entités ("1", "2", "3", ">10")
-- **cutscene** : Présence d'une cinématique (Oui/Non)
+- **cutscene** : Présence d'une cinématique avant, pendant ou après le combat (Oui/Non)
 - **optionnel** : Boss optionnel ou obligatoire (Oui/Non)
 - **dlc** : Boss de DLC (Oui/Non)
 
@@ -51,7 +51,6 @@ Le jeu de données est maintenant structuré en **5 tables/collections** JSON :
 Collection des boss à deviner avec leurs caractéristiques :
 
 - **71 boss** au total (Bloodborne, Sekiro, Dark Souls III)
-- Chaque boss a un ID unique (ex: "bb-001", "sek-001", "ds3-001")
 - Propriétés : nom, jeu, genre, espèce, phases, nombre, cutscene, optionnel, dlc
 
 ### 2. Souls (`souls`)
@@ -67,7 +66,7 @@ Informations sur les jeux FromSoftware supportés :
 Profils des joueurs inscrits :
 
 - Pseudonyme, date d'inscription
-- Statistiques personnelles (parties jouées/terminées)
+- Statistiques personnelles (parties jouées)
 - Boss favoris
 - Système de streaks : streak actuelle, meilleure streak, dernier jour joué
 
@@ -97,12 +96,10 @@ Métriques globales du jeu :
 ### Installation
 
 ```bash
-# Cloner le projet
-git clone [URL_DU_REPO]
-cd soulsdle-api
-
 # Installer les dépendances
 npm install
+
+cd backend
 
 # Lancer le serveur de développement
 npm run dev
@@ -231,4 +228,4 @@ Le système de streaks permet de suivre l'assiduité des joueurs :
 
 ## Crédits
 
-Sinfix - Cyrian Torrejon
+Cyrian Torrejon | Sinfix
