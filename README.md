@@ -50,7 +50,7 @@ Le jeu de données est maintenant structuré en **5 tables/collections** JSON :
 
 Collection des boss à deviner avec leurs caractéristiques :
 
-- **87 boss** au total (Bloodborne, Sekiro, Dark Souls III, Dark Souls)
+- **88 boss** au total (Bloodborne, Sekiro, Dark Souls III, Dark Souls)
 - Propriétés : nom, jeu, genre, espèce, phases, nombre, cutscene, optionnel, dlc
 
 ### 2. Souls (`souls`)
