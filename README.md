@@ -1,8 +1,8 @@
-# Project A - Soulsdle API - Projet R5.08
+# Project A - Soulsdle API - R5.08
 
 ## Spécification du système
 
-Soulsdle est un jeu de devinettes inspiré de Wordle, mais centré sur les boss des jeux Souls de FromSoftware (Bloodborne, Sekiro, Dark Souls, Elden Ring).
+Soulsdle est un jeu de devinettes inspiré de Wordle, mais centré sur les boss (adversaires majeurs) des jeux Souls de FromSoftware (Bloodborne, Sekiro, Dark Souls, Elden Ring...).
 
 Pour plus d'infos : https://fr.wikipedia.org/wiki/Souls
 
@@ -26,8 +26,8 @@ Pour plus d'infos : https://fr.wikipedia.org/wiki/Souls
 - **phases** : Nombre de phases du combat (de 1 à 3)
 - **nombre** : Nombre d'entités ("1", "2", "3", ">10")
 - **cutscene** : Présence d'une cinématique avant, pendant ou après le combat (Oui/Non)
-- **optionnel** : Boss optionnel ou obligatoire (Oui/Non)
-- **dlc** : Boss de DLC (Oui/Non)
+- **optionnel** : Boss optionnel ou obligatoire (Obligatoire/Optionnel)
+- **dlc** : Boss de DLC (DLC/Base)
 
 #### Partie
 
@@ -50,16 +50,17 @@ Le jeu de données est maintenant structuré en **5 tables/collections** JSON :
 
 Collection des boss à deviner avec leurs caractéristiques :
 
-- **71 boss** au total (Bloodborne, Sekiro, Dark Souls III)
+- **87 boss** au total (Bloodborne, Sekiro, Dark Souls III, Dark Souls)
 - Propriétés : nom, jeu, genre, espèce, phases, nombre, cutscene, optionnel, dlc
 
 ### 2. Souls (`souls`)
 
 Informations sur les jeux FromSoftware supportés :
 
-- Bloodborne (2015) - 21 boss
+- Bloodborne (2015) - 22 boss
 - Sekiro (2019) - 15 boss
 - Dark Souls III (2016) - 25 boss
+- Dark Souls (2011) - 25 boss
 
 ### 3. Joueurs (`joueurs`)
 
@@ -106,6 +107,11 @@ npm run dev
 
 # Lancer en production
 npm start
+
+cd frontend
+
+# Lancer le serveur frontend
+python -m http.server 8080
 ```
 
 ### Variables d'environnement
@@ -167,7 +173,8 @@ NODE_ENV=development
 ### Bonus
 
 - [ ] Liens HATEOAS
-- [ ] Client web React/Vue
+- [ ] Liens avec base NoSQL
+- [ ] Client web Angular
 - [ ] Authentification utilisateur
 - [ ] Classements et profils
 

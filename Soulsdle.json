@@ -166,7 +166,7 @@
       "dlc": "Base"
     },
     {
-      "nom": "Gerhrman, le premier chasseur",
+      "nom": "Gehrman, le premier chasseur",
       "jeu": "Bloodborne",
       "genre": "Homme",
       "espece": ["Humain"],
@@ -433,7 +433,7 @@
       "nom": "Danseuse de la Vallée Boréale",
       "jeu": "Dark Souls III",
       "genre": "Femme",
-      "espece": ["Humain", "Mort-vivant", "Animal"],
+      "espece": ["Humain", "Spectre"],
       "phases": 2,
       "nombre": 1,
       "cutscene": "Oui",
@@ -870,6 +870,17 @@
       "dlc": "Base"
     },
     {
+      "nom": "Quatre Rois",
+      "jeu": "Dark Souls",
+      "genre": "Homme",
+      "espece": ["Spectre", "Esprit"],
+      "phases": 1,
+      "nombre": 4,
+      "cutscene": "Non",
+      "optionnel": "Obligatoire",
+      "dlc": "Base"
+    },
+    {
       "nom": "Virevent",
       "jeu": "Dark Souls",
       "genre": "Inconnu",
@@ -925,7 +936,7 @@
       "dlc": "DLC"
     },
     {
-      "nom": "Artorias le Marcheur des Abysses",
+      "nom": "Chevalier Artorias",
       "jeu": "Dark Souls",
       "genre": "Homme",
       "espece": ["Humain", "Abomination"],
@@ -1023,7 +1034,7 @@
       "partiesJouees": 0,
       "partiesTerminees": 0,
       "meilleurScore": 0,
-      "bossFavoris": ["Dansseuse de la Vallée Boréale"],
+      "bossFavoris": ["Danseuse de la Vallée Boréale"],
       "streakActuelle": 0,
       "meilleureStreak": 0,
       "dernierJourJoue": null

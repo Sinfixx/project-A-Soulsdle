@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+//Cette route va surement recevoir des améliorations quand l'application sera fini/plus aboutie
+
 module.exports = (data) => {
   // GET /stats
   router.get("/", (req, res) => {
