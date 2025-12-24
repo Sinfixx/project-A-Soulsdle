@@ -1,0 +1,324 @@
+/* Container principal */
+.game-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Header */
+.game-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.game-header h2 {
+  font-size: 2rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.game-description {
+  color: #aaa;
+  font-size: 1.1rem;
+}
+
+/* Section démarrage */
+.start-section {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+/* Boutons */
+.btn-primary,
+.btn-submit,
+.replay-btn {
+  padding: 15px 30px;
+  background: #ffffff;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:hover:not(:disabled),
+.btn-submit:hover:not(:disabled),
+.replay-btn:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary:disabled,
+.btn-submit:disabled {
+  background: #666;
+  color: #999;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Zone de jeu */
+.game-board {
+  margin-top: 20px;
+}
+
+/* Section devinette */
+.guess-section {
+  background: #2a2a2a;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.boss-input {
+  flex: 1;
+  padding: 12px 20px;
+  background: #1a1a1a;
+  color: #fff;
+  border: 2px solid #555;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.boss-input:focus {
+  outline: none;
+  border-color: #ffffff;
+}
+
+.boss-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-submit {
+  padding: 12px 25px;
+  white-space: nowrap;
+}
+
+.game-info {
+  text-align: center;
+  color: #aaa;
+  font-size: 1rem;
+}
+
+.tentatives-count {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Écran de victoire */
+.victory-screen {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+  animation: slideInScale 0.6s ease-out;
+}
+
+.victory-screen h2 {
+  font-size: 2.5rem;
+  color: #ffffff;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.victory-boss {
+  font-size: 2rem;
+  color: #ffd700;
+  font-weight: bold;
+  margin: 20px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.victory-stats {
+  font-size: 1.2rem;
+  color: #ddd;
+  margin: 20px 0;
+  line-height: 1.8;
+}
+
+.replay-btn {
+  margin-top: 20px;
+  background: #ffffff;
+  font-size: 1.2rem;
+}
+
+/* Propositions */
+.propositions {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.proposition-card {
+  background: #2a2a2a;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.4s ease-out;
+}
+
+.proposition-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #444;
+}
+
+.proposition-header strong {
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+.tentative-number {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+/* Grille de propriétés */
+.proposition-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.prop-field {
+  padding: 12px;
+  border-radius: 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  transition: all 0.3s ease;
+}
+
+.field-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.field-value {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Classes de couleur */
+.correct {
+  background: #2ecc71;
+  color: #000;
+}
+
+.partial {
+  background: #f39c12;
+  color: #000;
+}
+
+.incorrect {
+  background: #e74c3c;
+  color: #fff;
+}
+
+/* Animations */
+@keyframes slideInScale {
+  0% {
+    transform: translateY(-50px) scale(0.8);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(10px) scale(1.05);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Confettis */
+:host::ng-deep .confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  top: -10px;
+  z-index: 9999;
+  animation: confetti 3s linear forwards;
+}
+
+@keyframes confetti {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .game-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .game-description {
+    font-size: 1rem;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  .btn-submit {
+    width: 100%;
+  }
+
+  .proposition-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .victory-screen h2 {
+    font-size: 1.8rem;
+  }
+
+  .victory-boss {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .proposition-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guess-section {
+    padding: 15px;
+  }
+}

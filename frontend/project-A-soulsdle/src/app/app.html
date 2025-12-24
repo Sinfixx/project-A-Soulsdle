@@ -1,13 +1,19 @@
-<style>
-  html {
-    background-color: #121212;
-  }
-</style>
+<div class="app-container">
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">
+        <h1>{{ title }}</h1>
+      </div>
+      <nav class="navbar">
+        <a routerLink="/game" routerLinkActive="active" class="nav-link"> Jeu </a>
+        <a routerLink="/boss" routerLinkActive="active" class="nav-link"> Boss </a>
+        <a routerLink="/stats" routerLinkActive="active" class="nav-link"> Statistiques </a>
+        <a routerLink="/player/1" routerLinkActive="active" class="nav-link"> Profil Joueur </a>
+      </nav>
+    </div>
+  </header>
 
-<main class="main">
-  <div class="content">
-    <h1>{{ title }}</h1>
-  </div>
-</main>
-
-<router-outlet />
+  <main class="main-content">
+    <router-outlet />
+  </main>
+</div>

@@ -1,0 +1,130 @@
+<div class="game-container">
+  <div class="game-header">
+    <h2>Soulsdle - Devinez le Boss</h2>
+    <p class="game-description">
+      Devinez le boss mystère en vous basant sur ses caractéristiques !
+    </p>
+  </div>
+
+  <!-- Bouton démarrer -->
+  @if (!gameStarted()) {
+  <div class="start-section">
+    <button class="btn-primary" (click)="startGame()" [disabled]="isLoading()">
+      @if (isLoading()) {
+      <span>⏳ Chargement...</span>
+      } @else {
+      <span>🎮 Nouvelle Partie</span>
+      }
+    </button>
+  </div>
+  }
+
+  <!-- Zone de jeu -->
+  @if (gameStarted() && gameState.getCurrentSession()()) {
+  <div class="game-board">
+    @if (!showVictory()) {
+    <div class="guess-section">
+      <div class="input-group">
+        <input
+          type="text"
+          [(ngModel)]="bossGuess"
+          list="boss-names"
+          class="boss-input"
+          placeholder="Entrez le nom d'un boss..."
+          (keyup.enter)="submitGuess()"
+          [disabled]="isLoading()"
+        />
+        <datalist id="boss-names">
+          @for (boss of allBossNames(); track boss) {
+          <option [value]="boss">{{ boss }}</option>
+          }
+        </datalist>
+        <button
+          class="btn-submit"
+          (click)="submitGuess()"
+          [disabled]="!bossGuess().trim() || isLoading()"
+        >
+          @if (isLoading()) { ⏳ } @else { Proposer }
+        </button>
+      </div>
+
+      <div class="game-info">
+        <span class="tentatives-count">
+          Tentatives : {{ gameState.getCurrentSession()()?.tentatives || 0 }}
+        </span>
+      </div>
+    </div>
+    }
+
+    <!-- Écran de victoire -->
+    @if (showVictory() && victoryBoss()) {
+    <div class="victory-screen">
+      <h2>🎉 VICTOIRE ! 🎉</h2>
+      <div class="victory-boss">{{ victoryBoss()!.nom }}</div>
+      <div class="victory-stats">
+        ⚔️ Trouvé en
+        <strong>{{ gameState.getCurrentSession()()?.tentatives }}</strong> tentative(s) !<br />
+        🎮 Jeu: <strong>{{ victoryBoss()!.jeu }}</strong>
+      </div>
+      <button class="replay-btn" (click)="startGame()">🔄 Nouvelle Partie</button>
+    </div>
+    }
+
+    <!-- Liste des propositions -->
+    <div class="propositions">
+      @for (guess of gameState.getCurrentSession()()?.propositions || []; track guess.proposition) {
+      <div class="proposition-card">
+        <div class="proposition-header">
+          <strong>{{ guess.proposition }}</strong>
+          <span class="tentative-number">Tentative {{ guess.tentatives }}</span>
+        </div>
+
+        @if (getBossDetails(guess.proposition); as boss) {
+        <div class="proposition-grid">
+          <div class="prop-field" [class]="guess.indices.jeu">
+            <span class="field-label">Jeu</span>
+            <span class="field-value">{{ boss.jeu }}</span>
+          </div>
+
+          <div class="prop-field" [class]="guess.indices.genre">
+            <span class="field-label">Genre</span>
+            <span class="field-value">{{ boss.genre }}</span>
+          </div>
+
+          <div class="prop-field" [class]="guess.indices.espece">
+            <span class="field-label">Espèce</span>
+            <span class="field-value">{{ boss.espece.join(', ') }}</span>
+          </div>
+
+          <div class="prop-field" [class]="guess.indices.phases">
+            <span class="field-label">Phases</span>
+            <span class="field-value">{{ boss.phases }}</span>
+          </div>
+
+          <div class="prop-field" [class]="guess.indices.nombre">
+            <span class="field-label">Nombre</span>
+            <span class="field-value">{{ boss.nombre }}</span>
+          </div>
+
+          <div class="prop-field" [class]="guess.indices.cutscene">
+            <span class="field-label">Cutscene</span>
+            <span class="field-value">{{ boss.cutscene }}</span>
+          </div>
+
+          <div class="prop-field" [class]="guess.indices.optionnel">
+            <span class="field-label">Facultativité</span>
+            <span class="field-value">{{ boss.optionnel }}</span>
+          </div>
+
+          <div class="prop-field" [class]="guess.indices.dlc">
+            <span class="field-label">DLC</span>
+            <span class="field-value">{{ boss.dlc }}</span>
+          </div>
+        </div>
+        }
+      </div>
+      }
+    </div>
+  </div>
+  }
+</div>
