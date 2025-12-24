@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Api } from '../../services/api';
@@ -20,6 +20,13 @@ export class Game {
   bossDetails = signal<Map<string, Boss>>(new Map());
   showVictory = signal(false);
   victoryBoss = signal<Boss | null>(null);
+
+  // Liste filtrée : retire les boss déjà tentés
+  availableBossNames = computed(() => {
+    const allBoss = this.allBossNames();
+    const triedBoss = Array.from(this.bossDetails().keys());
+    return allBoss.filter((bossName) => !triedBoss.includes(bossName));
+  });
 
   constructor(private api: Api, public gameState: GameState) {
     this.loadBossNames();

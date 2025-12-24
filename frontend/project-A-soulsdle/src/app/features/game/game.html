@@ -35,7 +35,7 @@
           [disabled]="isLoading()"
         />
         <datalist id="boss-names">
-          @for (boss of allBossNames(); track boss) {
+          @for (boss of availableBossNames(); track boss) {
           <option [value]="boss">{{ boss }}</option>
           }
         </datalist>
