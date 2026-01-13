@@ -1,4 +1,61 @@
 <div class="boss-list-container">
-  <h2>Liste des Boss</h2>
-  <p>Composant de la liste des boss à venir...</p>
+  <div class="boss-header">
+    <h2>Liste des Boss</h2>
+    <p class="boss-description">Découvrez tous les boss des jeux FromSoftware</p>
+  </div>
+
+  <!-- Filtres -->
+  <div class="filters-section">
+    <div class="search-bar">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        class="search-input"
+        placeholder="Rechercher un boss..."
+      />
+    </div>
+
+    <div class="filters-row">
+      <select [(ngModel)]="selectedGame" class="filter-select">
+        <option value="">Tous les jeux</option>
+        @for (game of availableGames(); track game) {
+        <option [value]="game">{{ game }}</option>
+        }
+      </select>
+
+      <select [(ngModel)]="selectedDlc" class="filter-select">
+        <option value="">DLC: Tous</option>
+        <option value="Base">Base uniquement</option>
+        <option value="DLC">DLC uniquement</option>
+      </select>
+
+      <button class="btn-reset" (click)="resetFilters()">Réinitialiser</button>
+    </div>
+
+    <div class="results-count">
+      <span>{{ filteredBoss().length }} boss trouvé(s)</span>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  @if (isLoading()) {
+  <div class="loading-section">
+    <div class="spinner"></div>
+    <p>Chargement des boss...</p>
+  </div>
+  }
+
+  <!-- Grille des boss -->
+  @if (!isLoading()) {
+  <div class="boss-grid">
+    @for (boss of filteredBoss(); track boss.nom) {
+    <app-boss-card [boss]="boss" />
+    } @empty {
+    <div class="no-results">
+      <p>Aucun boss trouvé avec ces filtres</p>
+      <button class="btn-reset" (click)="resetFilters()">Réinitialiser les filtres</button>
+    </div>
+    }
+  </div>
+  }
 </div>

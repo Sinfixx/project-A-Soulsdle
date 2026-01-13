@@ -1,1 +1,45 @@
-<p>boss-card works!</p>
+<div class="boss-card">
+  <div class="boss-header">
+    <h3 class="boss-name">{{ boss.nom }}</h3>
+    <span class="boss-game">{{ boss.jeu }}</span>
+  </div>
+
+  <div class="boss-info">
+    <div class="info-row">
+      <span class="info-label">Genre :</span>
+      <span class="info-value">{{ boss.genre }}</span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-label">Espèce :</span>
+      <span class="info-value">{{ boss.espece.join(', ') }}</span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-label">Phases :</span>
+      <span class="info-value">{{ boss.phases }}</span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-label">Nombre :</span>
+      <span class="info-value">{{ boss.nombre }}</span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-label">Cutscene :</span>
+      <span class="info-value">{{ boss.cutscene }}</span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-label">Facultativité :</span>
+      <span class="info-value">{{ boss.optionnel }}</span>
+    </div>
+
+    <div class="info-row">
+      <span class="info-label">DLC :</span>
+      <span class="info-value" [class.dlc-badge]="boss.dlc === 'DLC'">
+        {{ boss.dlc }}
+      </span>
+    </div>
+  </div>
+</div>
