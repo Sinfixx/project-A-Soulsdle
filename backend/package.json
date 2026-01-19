@@ -18,10 +18,12 @@
   "author": "Sinfix",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.18.2",
     "js-yaml": "^4.1.0",
+    "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.21.0",
     "swagger-ui-express": "^5.0.1",
     "yamljs": "^0.3.0"

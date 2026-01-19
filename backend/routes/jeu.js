@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Boss = require("../models/Boss");
+const { authenticateToken } = require("../middleware/auth");
 
 // Session de jeu en mémoire
 let sessions = {};
@@ -23,8 +24,8 @@ function compareEspeces(especes1, especes2) {
 }
 
 module.exports = () => {
-  // GET /jeu - Nouvelle partie
-  router.get("/", async (req, res) => {
+  // GET /jeu - Nouvelle partie (PROTÉGÉ)
+  router.get("/", authenticateToken, async (req, res) => {
     try {
       const sessionId = Date.now().toString();
       const totalBoss = await Boss.countDocuments();
@@ -48,8 +49,8 @@ module.exports = () => {
     }
   });
 
-  // POST /jeu/guess - Soumettre une proposition
-  router.post("/guess", async (req, res) => {
+  // POST /jeu/guess - Soumettre une proposition (PROTÉGÉ)
+  router.post("/guess", authenticateToken, async (req, res) => {
     try {
       const { sessionId, proposition } = req.body;
 

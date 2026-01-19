@@ -1,0 +1,60 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-header">
+      <h1>🎮 Soulsdle</h1>
+      <h2>Connexion</h2>
+      <p>Connectez-vous pour jouer et suivre vos statistiques</p>
+    </div>
+
+    <form class="auth-form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      @if (errorMessage) {
+        <div class="error-message">
+          {{ errorMessage }}
+        </div>
+      }
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="credentials.email"
+          required
+          email
+          class="form-input"
+          placeholder="votre@email.com"
+          [disabled]="loading"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="credentials.password"
+          required
+          minlength="6"
+          class="form-input"
+          placeholder="••••••••"
+          [disabled]="loading"
+        />
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="!loginForm.valid || loading">
+        @if (loading) {
+          <span>Connexion en cours...</span>
+        } @else {
+          <span>Se connecter</span>
+        }
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Pas encore de compte ?</p>
+      <a routerLink="/register" class="link">Créer un compte</a>
+    </div>
+  </div>
+</div>

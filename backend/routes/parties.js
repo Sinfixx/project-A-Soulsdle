@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 const Partie = require("../models/Partie");
 const Joueur = require("../models/Joueur");
+const { authenticateToken } = require("../middleware/auth");
 
 module.exports = () => {
-  // GET /parties
-  router.get("/", async (req, res) => {
+  // GET /parties (PROTÉGÉ)
+  router.get("/", authenticateToken, async (req, res) => {
     try {
       const { page = 1, limit = 20, joueurId, terminee } = req.query;
 
@@ -33,8 +34,8 @@ module.exports = () => {
     }
   });
 
-  // GET /parties/:id
-  router.get("/:id", async (req, res) => {
+  // GET /parties/:id (PROTÉGÉ)
+  router.get("/:id", authenticateToken, async (req, res) => {
     try {
       const partie = await Partie.findOne({ id: req.params.id });
       if (!partie) return res.status(404).json({ error: "Partie non trouvée" });
@@ -44,8 +45,8 @@ module.exports = () => {
     }
   });
 
-  // POST /parties
-  router.post("/", async (req, res) => {
+  // POST /parties (PROTÉGÉ)
+  router.post("/", authenticateToken, async (req, res) => {
     try {
       const partie = new Partie(req.body);
       await partie.save();
@@ -55,8 +56,8 @@ module.exports = () => {
     }
   });
 
-  // PUT /parties/:id - Mise à jour avec gestion des streaks
-  router.put("/:id", async (req, res) => {
+  // PUT /parties/:id - Mise à jour avec gestion des streaks (PROTÉGÉ)
+  router.put("/:id", authenticateToken, async (req, res) => {
     try {
       const anciennePartie = await Partie.findOne({ id: req.params.id });
       if (!anciennePartie)
@@ -65,42 +66,52 @@ module.exports = () => {
       const nouvellePartie = await Partie.findOneAndUpdate(
         { id: req.params.id },
         req.body,
-        { new: true, runValidators: true }
+        { new: true, runValidators: true },
       );
 
-      // Si la partie vient d'être terminée, mettre à jour les streaks
+      // Si la partie vient d'être terminée, mettre à jour les statistiques du joueur
       if (!anciennePartie.terminee && nouvellePartie.terminee) {
-        const joueur = await Joueur.findOne({ id: nouvellePartie.joueurId });
+        const joueur = await Joueur.findById(req.joueur._id);
         if (joueur) {
+          // Incrémenter les parties gagnées si la partie est réussie
+          if (nouvellePartie.victoire) {
+            joueur.partiesGagnees += 1;
+          }
+
           const aujourdhui = new Date().toISOString().split("T")[0];
 
           if (!joueur.dernierJourJoue) {
             // Première partie terminée
             joueur.streakActuelle = 1;
             joueur.meilleureStreak = 1;
-          } else if (joueur.dernierJourJoue === aujourdhui) {
-            // Même jour, ne rien changer
           } else {
-            const dernierJour = new Date(joueur.dernierJourJoue);
-            const aujourdhuiDate = new Date(aujourdhui);
-            const diffJours = Math.floor(
-              (aujourdhuiDate - dernierJour) / (1000 * 60 * 60 * 24)
-            );
+            const dernierJour = new Date(joueur.dernierJourJoue)
+              .toISOString()
+              .split("T")[0];
 
-            if (diffJours === 1) {
-              // Jour consécutif
-              joueur.streakActuelle += 1;
-              if (joueur.streakActuelle > joueur.meilleureStreak) {
-                joueur.meilleureStreak = joueur.streakActuelle;
-              }
+            if (dernierJour === aujourdhui) {
+              // Même jour, ne rien changer aux streaks
             } else {
-              // Streak brisée
-              joueur.streakActuelle = 1;
+              const dernierJourDate = new Date(dernierJour);
+              const aujourdhuiDate = new Date(aujourdhui);
+              const diffJours = Math.floor(
+                (aujourdhuiDate - dernierJourDate) / (1000 * 60 * 60 * 24),
+              );
+
+              if (diffJours === 1) {
+                // Jour consécutif
+                joueur.streakActuelle += 1;
+                if (joueur.streakActuelle > joueur.meilleureStreak) {
+                  joueur.meilleureStreak = joueur.streakActuelle;
+                }
+              } else {
+                // Streak brisée
+                joueur.streakActuelle = 1;
+              }
             }
           }
 
-          joueur.dernierJourJoue = aujourdhui;
-          joueur.partiesTerminees = (joueur.partiesTerminees || 0) + 1;
+          joueur.dernierJourJoue = new Date(aujourdhui);
           await joueur.save();
         }
       }

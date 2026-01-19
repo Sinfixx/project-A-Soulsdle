@@ -4,12 +4,18 @@
       <div class="logo">
         <h1>{{ title }}</h1>
       </div>
-      <nav class="navbar">
-        <a routerLink="/game" routerLinkActive="active" class="nav-link"> Jeu </a>
-        <a routerLink="/boss" routerLinkActive="active" class="nav-link"> Boss </a>
-        <a routerLink="/stats" routerLinkActive="active" class="nav-link"> Statistiques </a>
-        <a routerLink="/player/1" routerLinkActive="active" class="nav-link"> Profil Joueur </a>
-      </nav>
+      @if (currentUser) {
+        <nav class="navbar">
+          <a routerLink="/game" routerLinkActive="active" class="nav-link"> Jeu </a>
+          <a routerLink="/boss" routerLinkActive="active" class="nav-link"> Boss </a>
+          <a routerLink="/stats" routerLinkActive="active" class="nav-link"> Statistiques </a>
+          <a routerLink="/player/1" routerLinkActive="active" class="nav-link"> Profil Joueur </a>
+        </nav>
+        <div class="user-section">
+          <span class="user-name">👤 {{ currentUser.pseudo }}</span>
+          <button class="btn-logout" (click)="logout()">Déconnexion</button>
+        </div>
+      }
     </div>
   </header>
 

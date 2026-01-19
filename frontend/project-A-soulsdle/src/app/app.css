@@ -26,6 +26,7 @@
   align-items: center;
   min-height: 70px;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 /* Logo */
@@ -77,6 +78,38 @@
   width: 100%;
   margin: 0 auto;
   padding: 30px 20px;
+}
+
+/* Section utilisateur */
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-name {
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.btn-logout {
+  padding: 10px 20px;
+  background: #ffffff;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.btn-logout:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
 }
 
 /* Responsive */

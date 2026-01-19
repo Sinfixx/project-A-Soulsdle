@@ -19,6 +19,7 @@ const startServer = async () => {
     await connectDB();
 
     // Routes
+    const authRoutes = require("./routes/auth");
     const bossRoutes = require("./routes/boss");
     const soulsRoutes = require("./routes/souls");
     const joueursRoutes = require("./routes/joueurs");
@@ -26,6 +27,7 @@ const startServer = async () => {
     const jeuRoutes = require("./routes/jeu");
     const statsRoutes = require("./routes/stats");
 
+    app.use("/auth", authRoutes());
     app.use("/boss", bossRoutes());
     app.use("/souls", soulsRoutes());
     app.use("/joueurs", joueursRoutes());
@@ -35,7 +37,7 @@ const startServer = async () => {
 
     // Swagger Documentation
     const swaggerDocument = YAML.load(
-      path.join(__dirname, "..", "soulsdle-api-spec.yaml")
+      path.join(__dirname, "..", "soulsdle-api-spec.yaml"),
     );
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
@@ -47,6 +49,7 @@ const startServer = async () => {
           "Jeu de devinettes sur les boss FromSoftware (Bloodborne, Sekiro, Dark Souls III)",
         version: "1.0.0",
         endpoints: {
+          auth: "/auth",
           boss: "/boss",
           souls: "/souls",
           joueurs: "/joueurs",
@@ -80,7 +83,7 @@ const startServer = async () => {
     app.listen(PORT, () => {
       console.log(`🎮 Soulsdle API démarrée sur http://localhost:${PORT}`);
       console.log(
-        `📚 Documentation Swagger: http://localhost:${PORT}/api-docs`
+        `📚 Documentation Swagger: http://localhost:${PORT}/api-docs`,
       );
     });
   } catch (error) {
