@@ -1,4 +1,84 @@
 <div class="player-container">
-  <h2>Profil Joueur</h2>
-  <p>Composant du profil joueur à venir...</p>
+  <!-- Loader -->
+  <div *ngIf="loading" class="loader-container">
+    <div class="loader"></div>
+    <p>Chargement du profil...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error && !loading" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+
+  <!-- Profil -->
+  <div *ngIf="!loading && currentUser" class="profile-content">
+    <!-- En-tête du profil -->
+    <div class="profile-header">
+      <div class="avatar">
+        <span class="avatar-text">{{ currentUser.pseudo.charAt(0).toUpperCase() }}</span>
+      </div>
+      <div class="profile-info">
+        <h1 class="player-name">{{ currentUser.pseudo }}</h1>
+        <p class="player-email">{{ currentUser.email }}</p>
+      </div>
+    </div>
+
+    <!-- Statistiques principales -->
+    <div class="stats-grid">
+      <div class="stat-card" *ngIf="stats">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-content">
+          <span class="stat-label">Parties gagnées</span>
+          <span class="stat-value">{{ stats.totalParties }}</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">{{ getStreakIcon(currentUser.streakActuelle) }}</div>
+        <div class="stat-content">
+          <span class="stat-label">Série actuelle</span>
+          <span class="stat-value">{{ currentUser.streakActuelle }}</span>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-content">
+          <span class="stat-label">Meilleure série</span>
+          <span class="stat-value">{{ currentUser.meilleureStreak }}</span>
+        </div>
+      </div>
+
+      <div class="stat-card" *ngIf="stats">
+        <div class="stat-icon">📊</div>
+        <div class="stat-content">
+          <span class="stat-label">Moyenne tentatives</span>
+          <span class="stat-value">{{ stats.moyenneTentatives }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Historique récent -->
+    <div class="history-section" *ngIf="stats && stats.historique.length > 0">
+      <h2 class="section-title">Historique récent</h2>
+
+      <div class="history-list">
+        <div *ngFor="let partie of stats.historique" class="history-item">
+          <div class="history-details">
+            <span class="boss-name">{{ partie.bossSecret }}</span>
+            <span class="attempts">{{ partie.tentatives }} tentatives</span>
+          </div>
+          <div class="history-date">
+            {{ formatDate(partie.dateDebut) }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message si pas de parties -->
+    <div class="no-games" *ngIf="stats && stats.totalParties === 0">
+      <p>Vous n'avez pas encore joué de partie.</p>
+      <p>Lancez-vous dans l'aventure Soulsdle !</p>
+    </div>
+  </div>
 </div>
