@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const Boss = require("../models/Boss");
 
 // Session de jeu en mémoire
 let sessions = {};
@@ -21,77 +22,88 @@ function compareEspeces(especes1, especes2) {
   return "incorrect";
 }
 
-module.exports = (data) => {
+module.exports = () => {
   // GET /jeu - Nouvelle partie
-  router.get("/", (req, res) => {
-    const sessionId = Date.now().toString();
-    const bossAleatoire =
-      data.boss[Math.floor(Math.random() * data.boss.length)];
+  router.get("/", async (req, res) => {
+    try {
+      const sessionId = Date.now().toString();
+      const totalBoss = await Boss.countDocuments();
+      const randomIndex = Math.floor(Math.random() * totalBoss);
+      const bossAleatoire = await Boss.findOne().skip(randomIndex);
 
-    sessions[sessionId] = {
-      bossSecret: bossAleatoire.nom,
-      propositions: [],
-      dateDebut: new Date().toISOString(),
-    };
+      sessions[sessionId] = {
+        bossSecret: bossAleatoire.nom,
+        propositions: [],
+        dateDebut: new Date().toISOString(),
+      };
 
-    res.json({
-      sessionId,
-      bossSecret: sessions[sessionId].bossSecret,
-      message: "Partie commencée ! Devinez le boss.",
-      nbBoss: data.boss.length,
-    });
+      res.json({
+        sessionId,
+        bossSecret: sessions[sessionId].bossSecret,
+        message: "Partie commencée ! Devinez le boss.",
+        nbBoss: totalBoss,
+      });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   });
 
   // POST /jeu/guess - Soumettre une proposition
-  router.post("/guess", (req, res) => {
-    const { sessionId, proposition } = req.body;
+  router.post("/guess", async (req, res) => {
+    try {
+      const { sessionId, proposition } = req.body;
 
-    if (!sessions[sessionId]) {
-      return res.status(400).json({ error: "Session invalide" });
-    }
+      if (!sessions[sessionId]) {
+        return res.status(400).json({ error: "Session invalide" });
+      }
 
-    const session = sessions[sessionId];
-    const bossPropose = data.boss.find((b) => b.nom === proposition);
-    const bossSecret = data.boss.find((b) => b.nom === session.bossSecret);
+      const session = sessions[sessionId];
+      const bossPropose = await Boss.findOne({ nom: proposition });
+      const bossSecret = await Boss.findOne({ nom: session.bossSecret });
 
-    if (!bossPropose) {
-      return res.status(400).json({ error: "Boss inconnu" });
-    }
+      if (!bossPropose) {
+        return res.status(400).json({ error: "Boss inconnu" });
+      }
 
-    const correct = proposition === session.bossSecret;
+      const correct = proposition === session.bossSecret;
 
-    // Comparer les propriétés
-    const indices = {
-      jeu: bossPropose.jeu === bossSecret.jeu ? "correct" : "incorrect",
-      genre: bossPropose.genre === bossSecret.genre ? "correct" : "incorrect",
-      espece: compareEspeces(bossPropose.espece, bossSecret.espece),
-      phases:
-        bossPropose.phases === bossSecret.phases ? "correct" : "incorrect",
-      nombre:
-        bossPropose.nombre === bossSecret.nombre ? "correct" : "incorrect",
-      cutscene:
-        bossPropose.cutscene === bossSecret.cutscene ? "correct" : "incorrect",
-      optionnel:
-        bossPropose.optionnel === bossSecret.optionnel
-          ? "correct"
-          : "incorrect",
-      dlc: bossPropose.dlc === bossSecret.dlc ? "correct" : "incorrect",
-    };
+      // Comparer les propriétés
+      const indices = {
+        jeu: bossPropose.jeu === bossSecret.jeu ? "correct" : "incorrect",
+        genre: bossPropose.genre === bossSecret.genre ? "correct" : "incorrect",
+        espece: compareEspeces(bossPropose.espece, bossSecret.espece),
+        phases:
+          bossPropose.phases === bossSecret.phases ? "correct" : "incorrect",
+        nombre:
+          bossPropose.nombre === bossSecret.nombre ? "correct" : "incorrect",
+        cutscene:
+          bossPropose.cutscene === bossSecret.cutscene
+            ? "correct"
+            : "incorrect",
+        optionnel:
+          bossPropose.optionnel === bossSecret.optionnel
+            ? "correct"
+            : "incorrect",
+        dlc: bossPropose.dlc === bossSecret.dlc ? "correct" : "incorrect",
+      };
 
-    session.propositions.push({ proposition, indices, correct });
+      session.propositions.push({ proposition, indices, correct });
 
-    res.json({
-      proposition,
-      correct,
-      indices,
-      tentatives: session.propositions.length,
-      message: correct
-        ? `Bravo ! C'était bien ${session.bossSecret} !`
-        : "Essayez encore !",
-    });
+      res.json({
+        proposition,
+        correct,
+        indices,
+        tentatives: session.propositions.length,
+        message: correct
+          ? `Bravo ! C'était bien ${session.bossSecret} !`
+          : "Essayez encore !",
+      });
 
-    if (correct) {
-      delete sessions[sessionId];
+      if (correct) {
+        delete sessions[sessionId];
+      }
+    } catch (error) {
+      res.status(500).json({ error: error.message });
     }
   });
 
