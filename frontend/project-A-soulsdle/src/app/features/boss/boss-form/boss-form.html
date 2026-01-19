@@ -1,0 +1,146 @@
+@if (isOpen) {
+  <div class="modal-overlay" (click)="onClose()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ boss ? 'Modifier le boss' : 'Créer un nouveau boss' }}</h2>
+        <button class="btn-close" (click)="onClose()">&times;</button>
+      </div>
+
+      <form (ngSubmit)="onSubmit()" class="boss-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nom">Nom du boss *</label>
+            <input
+              id="nom"
+              type="text"
+              [(ngModel)]="nom"
+              name="nom"
+              required
+              [disabled]="!!boss"
+              placeholder="Ex: Lady Maria de la Tour Astrale"
+            />
+            @if (boss) {
+              <small class="form-hint">Le nom ne peut pas être modifié</small>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="jeu">Jeu *</label>
+            <select id="jeu" [(ngModel)]="jeu" name="jeu" required>
+              @for (j of jeux; track j) {
+                <option [value]="j">{{ j }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="genre">Genre *</label>
+            <select id="genre" [(ngModel)]="genre" name="genre" required>
+              @for (g of genres; track g) {
+                <option [value]="g">{{ g }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cutscene">Cutscene *</label>
+            <select id="cutscene" [(ngModel)]="cutscene" name="cutscene" required>
+              @for (option of cutsceneOptions; track option) {
+                <option [value]="option">{{ option }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Espèces *</label>
+          <div class="espece-input-group">
+            <input
+              type="text"
+              [(ngModel)]="especeInput"
+              (keyup.enter)="addEspece()"
+              name="especeInput"
+              placeholder="Ajoutez une espèce..."
+            />
+            <button type="button" class="btn-add" (click)="addEspece()">Ajouter</button>
+          </div>
+          <div class="espece-tags">
+            @for (espece of formData().espece; track espece) {
+              <span class="tag">
+                {{ espece }}
+                <button type="button" class="tag-remove" (click)="removeEspece(espece)">
+                  &times;
+                </button>
+              </span>
+            } @empty {
+              <small class="form-hint">Aucune espèce ajoutée</small>
+            }
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phases">Nombre de phases *</label>
+            <input id="phases" type="number" [(ngModel)]="phases" name="phases" min="1" required />
+          </div>
+
+          <div class="form-group">
+            <label for="nombre">Nombre d'ennemis *</label>
+            <input id="nombre" type="number" [(ngModel)]="nombre" name="nombre" min="1" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="optionnel">Facultativité *</label>
+            <select id="optionnel" [(ngModel)]="optionnel" name="optionnel" required>
+              @for (option of optionnelOptions; track option) {
+                <option [value]="option">{{ option }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="dlc">DLC *</label>
+            <select id="dlc" [(ngModel)]="dlc" name="dlc" required>
+              @for (option of dlcOptions; track option) {
+                <option [value]="option">{{ option }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          @if (boss) {
+            <button type="button" class="btn-danger" (click)="onDelete()">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                />
+              </svg>
+              Supprimer
+            </button>
+          }
+          <div class="form-actions-right">
+            <button type="button" class="btn-secondary" (click)="onClose()">Annuler</button>
+            <button type="submit" class="btn-primary" [disabled]="!isFormValid()">
+              {{ boss ? 'Mettre à jour' : 'Créer' }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+}

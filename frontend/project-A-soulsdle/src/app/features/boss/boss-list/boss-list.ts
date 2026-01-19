@@ -4,10 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { Api } from '../../../services/api';
 import { Boss } from '../../../models/boss.model';
 import { BossCard } from '../boss-card/boss-card';
+import { BossForm } from '../boss-form/boss-form';
 
 @Component({
   selector: 'app-boss-list',
-  imports: [CommonModule, FormsModule, BossCard],
+  imports: [CommonModule, FormsModule, BossCard, BossForm],
   templateUrl: './boss-list.html',
   styleUrl: './boss-list.css',
 })
@@ -17,6 +18,10 @@ export class BossList {
   searchTerm = signal('');
   selectedGame = signal('');
   selectedDlc = signal('');
+
+  // Modal state
+  isFormOpen = signal(false);
+  editingBoss = signal<Boss | undefined>(undefined);
 
   // Liste filtrée des boss
   filteredBoss = computed(() => {
@@ -78,5 +83,69 @@ export class BossList {
     this.searchTerm.set('');
     this.selectedGame.set('');
     this.selectedDlc.set('');
+  }
+
+  // CRUD operations
+  openCreateModal() {
+    this.editingBoss.set(undefined);
+    this.isFormOpen.set(true);
+  }
+
+  openEditModal(boss: Boss) {
+    this.editingBoss.set(boss);
+    this.isFormOpen.set(true);
+  }
+
+  closeModal() {
+    this.isFormOpen.set(false);
+    this.editingBoss.set(undefined);
+  }
+
+  saveBoss(bossData: Partial<Boss>) {
+    const editing = this.editingBoss();
+
+    if (editing) {
+      // Update existing boss
+      this.api.updateBoss(editing.nom, bossData).subscribe({
+        next: (updatedBoss) => {
+          this.allBoss.update((bosses) =>
+            bosses.map((b) => (b.nom === editing.nom ? updatedBoss : b)),
+          );
+          this.closeModal();
+          alert('Boss modifié avec succès !');
+        },
+        error: (err) => {
+          console.error('Erreur modification boss:', err);
+          alert(`Erreur: ${err.error?.error || 'Impossible de modifier le boss'}`);
+        },
+      });
+    } else {
+      // Create new boss
+      this.api.createBoss(bossData as Omit<Boss, '_id'>).subscribe({
+        next: (newBoss) => {
+          this.allBoss.update((bosses) => [...bosses, newBoss]);
+          this.closeModal();
+          alert('Boss créé avec succès !');
+        },
+        error: (err) => {
+          console.error('Erreur création boss:', err);
+          alert(`Erreur: ${err.error?.error || 'Impossible de créer le boss'}`);
+        },
+      });
+    }
+  }
+
+  deleteBoss(boss: Boss) {
+    this.api.deleteBoss(boss.nom).subscribe({
+      next: () => {
+        this.allBoss.update((bosses) => bosses.filter((b) => b.nom !== boss.nom));
+        this.closeModal();
+        alert('Boss supprimé avec succès !');
+      },
+      error: (err) => {
+        console.error('Erreur suppression boss:', err);
+        alert(`Erreur: ${err.error?.error || 'Impossible de supprimer le boss'}`);
+      },
+    });
   }
 }

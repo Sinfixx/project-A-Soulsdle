@@ -23,10 +23,22 @@ export class Api {
     return this.http.get<Boss>(`${this.apiUrl}/boss/${encodeURIComponent(nom)}`);
   }
 
+  createBoss(boss: Omit<Boss, '_id'>): Observable<Boss> {
+    return this.http.post<Boss>(`${this.apiUrl}/boss`, boss);
+  }
+
+  updateBoss(nom: string, boss: Partial<Boss>): Observable<Boss> {
+    return this.http.put<Boss>(`${this.apiUrl}/boss/${encodeURIComponent(nom)}`, boss);
+  }
+
+  deleteBoss(nom: string): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.apiUrl}/boss/${encodeURIComponent(nom)}`);
+  }
+
   // Game endpoints
   startGame(): Observable<{ sessionId: string; nbBoss: number; message: string }> {
     return this.http.get<{ sessionId: string; nbBoss: number; message: string }>(
-      `${this.apiUrl}/jeu`
+      `${this.apiUrl}/jeu`,
     );
   }
 

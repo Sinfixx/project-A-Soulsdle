@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Boss } from '../../../models/boss.model';
 
@@ -10,4 +10,9 @@ import { Boss } from '../../../models/boss.model';
 })
 export class BossCard {
   @Input() boss!: Boss;
+  @Output() edit = new EventEmitter<Boss>();
+
+  onEdit() {
+    this.edit.emit(this.boss);
+  }
 }

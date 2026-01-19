@@ -1,7 +1,23 @@
 <div class="boss-list-container">
   <div class="boss-header">
-    <h2>Liste des Boss</h2>
-    <p class="boss-description">Découvrez tous les boss des jeux FromSoftware</p>
+    <div>
+      <h2>Liste des Boss</h2>
+      <p class="boss-description">Découvrez tous les boss des jeux FromSoftware</p>
+    </div>
+    <button class="btn-create" (click)="openCreateModal()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+        />
+      </svg>
+      Créer un boss
+    </button>
   </div>
 
   <!-- Filtres -->
@@ -19,7 +35,7 @@
       <select [(ngModel)]="selectedGame" class="filter-select">
         <option value="">Tous les jeux</option>
         @for (game of availableGames(); track game) {
-        <option [value]="game">{{ game }}</option>
+          <option [value]="game">{{ game }}</option>
         }
       </select>
 
@@ -39,23 +55,32 @@
 
   <!-- Loading -->
   @if (isLoading()) {
-  <div class="loading-section">
-    <div class="spinner"></div>
-    <p>Chargement des boss...</p>
-  </div>
+    <div class="loading-section">
+      <div class="spinner"></div>
+      <p>Chargement des boss...</p>
+    </div>
   }
 
   <!-- Grille des boss -->
   @if (!isLoading()) {
-  <div class="boss-grid">
-    @for (boss of filteredBoss(); track boss.nom) {
-    <app-boss-card [boss]="boss" />
-    } @empty {
-    <div class="no-results">
-      <p>Aucun boss trouvé avec ces filtres</p>
-      <button class="btn-reset" (click)="resetFilters()">Réinitialiser les filtres</button>
+    <div class="boss-grid">
+      @for (boss of filteredBoss(); track boss.nom) {
+        <app-boss-card [boss]="boss" (edit)="openEditModal($event)" />
+      } @empty {
+        <div class="no-results">
+          <p>Aucun boss trouvé avec ces filtres</p>
+          <button class="btn-reset" (click)="resetFilters()">Réinitialiser les filtres</button>
+        </div>
+      }
     </div>
-    }
-  </div>
   }
+
+  <!-- Modal formulaire -->
+  <app-boss-form
+    [boss]="editingBoss()"
+    [isOpen]="isFormOpen()"
+    (save)="saveBoss($event)"
+    (close)="closeModal()"
+    (delete)="deleteBoss($event)"
+  />
 </div>

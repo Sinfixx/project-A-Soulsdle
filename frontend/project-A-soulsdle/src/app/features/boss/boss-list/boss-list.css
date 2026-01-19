@@ -6,8 +6,15 @@
 
 /* Header */
 .boss-header {
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 30px;
+  gap: 20px;
+}
+
+.boss-header > div {
+  flex: 1;
 }
 
 .boss-header h2 {
@@ -20,6 +27,34 @@
 .boss-description {
   color: #aaa;
   font-size: 1.1rem;
+}
+
+.btn-create {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #27ae60, #229954);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+  white-space: nowrap;
+}
+
+.btn-create:hover {
+  background: linear-gradient(135deg, #229954, #1e8449);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+}
+
+.btn-create svg {
+  width: 20px;
+  height: 20px;
 }
 
 /* Section filtres */
@@ -191,12 +226,22 @@
 }
 
 @media (max-width: 768px) {
+  .boss-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
   .boss-header h2 {
     font-size: 1.5rem;
   }
 
   .boss-description {
     font-size: 1rem;
+  }
+
+  .btn-create {
+    width: 100%;
+    justify-content: center;
   }
 
   .filters-section {

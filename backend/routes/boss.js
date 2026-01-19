@@ -39,10 +39,18 @@ module.exports = () => {
   // GET /boss/:nom - Détails d'un boss
   router.get("/:nom", async (req, res) => {
     try {
-      const boss = await Boss.findOne({ nom: req.params.nom });
+      const boss = await Boss.findOne({ nom: req.params.nom }).lean();
       if (!boss) return res.status(404).json({ error: "Boss non trouvé" });
+
+      // Supprimer les métadonnées MongoDB
+      delete boss._id;
+      delete boss.__v;
+      delete boss.createdAt;
+      delete boss.updatedAt;
+
       res.json(boss);
     } catch (error) {
+      console.error("❌ Erreur GET /boss/:nom:", error);
       res.status(500).json({ error: error.message });
     }
   });
@@ -59,8 +67,17 @@ module.exports = () => {
 
       const boss = new Boss(req.body);
       await boss.save();
-      res.status(201).json(boss);
+
+      // Convertir en objet simple et supprimer les métadonnées
+      const bossObject = boss.toObject();
+      delete bossObject._id;
+      delete bossObject.__v;
+      delete bossObject.createdAt;
+      delete bossObject.updatedAt;
+
+      res.status(201).json(bossObject);
     } catch (error) {
+      console.error("❌ Erreur POST /boss:", error);
       res.status(400).json({ error: error.message });
     }
   });
@@ -71,11 +88,20 @@ module.exports = () => {
       const boss = await Boss.findOneAndUpdate(
         { nom: req.params.nom },
         req.body,
-        { new: true, runValidators: true }
-      );
+        { new: true, runValidators: true },
+      ).lean();
+
       if (!boss) return res.status(404).json({ error: "Boss non trouvé" });
+
+      // Supprimer les métadonnées MongoDB
+      delete boss._id;
+      delete boss.__v;
+      delete boss.createdAt;
+      delete boss.updatedAt;
+
       res.json(boss);
     } catch (error) {
+      console.error("❌ Erreur PUT /boss/:nom:", error);
       res.status(400).json({ error: error.message });
     }
   });
