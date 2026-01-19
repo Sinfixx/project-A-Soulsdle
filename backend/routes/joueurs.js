@@ -43,7 +43,6 @@ module.exports = () => {
         ...req.body,
         streakActuelle: 0,
         meilleureStreak: 0,
-        dernierJourJoue: null,
       });
       await joueur.save();
       res.status(201).json(joueur);
@@ -58,7 +57,7 @@ module.exports = () => {
       const joueur = await Joueur.findOneAndUpdate(
         { id: req.params.id },
         req.body,
-        { new: true, runValidators: true }
+        { new: true, runValidators: true },
       );
       if (!joueur) return res.status(404).json({ error: "Joueur non trouvé" });
       res.json(joueur);

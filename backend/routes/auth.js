@@ -48,7 +48,6 @@ module.exports = () => {
         partiesGagnees: 0,
         streakActuelle: 0,
         meilleureStreak: 0,
-        dernierJourJoue: null,
       });
 
       await joueur.save();
@@ -154,7 +153,6 @@ module.exports = () => {
           partiesGagnees: req.joueur.partiesGagnees,
           streakActuelle: req.joueur.streakActuelle,
           meilleureStreak: req.joueur.meilleureStreak,
-          dernierJourJoue: req.joueur.dernierJourJoue,
         },
       });
     } catch (error) {

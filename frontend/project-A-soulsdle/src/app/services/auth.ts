@@ -34,7 +34,6 @@ export interface JoueurProfile {
   partiesGagnees: number;
   streakActuelle: number;
   meilleureStreak: number;
-  dernierJourJoue?: string;
 }
 
 @Injectable({

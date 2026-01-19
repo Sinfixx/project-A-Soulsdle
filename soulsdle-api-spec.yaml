@@ -589,10 +589,6 @@ components:
           type: integer
           description: Nombre de tentatives utilisées
           example: 4
-        terminee:
-          type: boolean
-          description: Si la partie est terminée (boss trouvé)
-          example: true
         joueurId:
           type: string
           description: ID du joueur
@@ -602,7 +598,6 @@ components:
         - dateDebut
         - bossSecret
         - joueurId
-        - terminee
 
     ResultatProposition:
       type: object
@@ -726,48 +721,30 @@ components:
           type: string
           description: Pseudonyme du joueur
           example: "SoulsHunter"
-        dateInscription:
+        email:
           type: string
-          format: date-time
-          description: Date d'inscription
-          example: "2024-01-01T00:00:00Z"
-        partiesJouees:
+          format: email
+          description: Adresse email du joueur
+          example: "soulshunter@example.com"
+        partiesGagnees:
           type: integer
-          description: Nombre total de parties jouées
-          example: 15
-        partiesTerminees:
-          type: integer
-          description: Nombre de parties terminées (boss trouvé)
+          description: Nombre de parties gagnées
           example: 12
-        meilleurScore:
-          type: integer
-          description: Meilleur score (moins de tentatives)
-          example: 2
-        bossFavoris:
-          type: array
-          items:
-            type: string
-          description: Liste des noms des boss favoris
-          example: ["Père Gascoigne", "Genichiro Ashina"]
         streakActuelle:
           type: integer
-          description: Nombre de jours consécutifs avec au moins une partie terminée
+          description: Série actuelle de victoires consécutives
           example: 5
         meilleureStreak:
           type: integer
-          description: Record de jours consécutifs avec au moins une partie terminée
+          description: Meilleure série de victoires consécutives
           example: 12
-        dernierJourJoue:
-          type: string
-          format: date
-          description: Dernier jour où le joueur a terminé une partie (format YYYY-MM-DD)
-          example: "2024-01-15"
       required:
         - id
         - pseudo
-        - dateInscription
-        - partiesJouees
-        - partiesTerminees
+        - email
+        - partiesGagnees
+        - streakActuelle
+        - meilleureStreak
 
     Pagination:
       type: object
