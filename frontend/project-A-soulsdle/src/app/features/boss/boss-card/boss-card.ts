@@ -15,4 +15,17 @@ export class BossCard {
   onEdit() {
     this.edit.emit(this.boss);
   }
+
+  getGameThemeClass(): string {
+    const gameMap: { [key: string]: string } = {
+      Bloodborne: 'theme-bloodborne',
+      Sekiro: 'theme-sekiro',
+      'Dark Souls': 'theme-darksouls',
+      'Dark Souls 2': 'theme-darksouls2',
+      'Dark Souls 3': 'theme-darksouls3',
+      "Demon's Souls": 'theme-demonssouls',
+      'Elden Ring': 'theme-eldenring',
+    };
+    return gameMap[this.boss.jeu] || 'theme-default';
+  }
 }

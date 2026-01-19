@@ -17,6 +17,183 @@
   border-color: #ffffff;
 }
 
+/* ===== THÈMES PAR JEU ===== */
+
+/* Bloodborne - Gris victorien gothique */
+.boss-card.theme-bloodborne {
+  background: linear-gradient(135deg, #2b2833 0%, #1a1620 100%);
+  border-color: #4a3f5c;
+}
+
+.boss-card.theme-bloodborne:hover {
+  box-shadow: 0 8px 16px rgba(106, 76, 124, 0.4);
+  border-color: #8b7aa3;
+}
+
+.boss-card.theme-bloodborne .boss-header {
+  border-bottom-color: #4a3f5c;
+}
+
+.boss-card.theme-bloodborne .boss-game {
+  background: #3d2f4d;
+  color: #c8b8d4;
+  border: 1px solid #6a4c7c;
+}
+
+.boss-card.theme-bloodborne .info-label {
+  color: #9d8ba8;
+}
+
+/* Sekiro - Style japonisant */
+.boss-card.theme-sekiro {
+  background: linear-gradient(135deg, #2d2520 0%, #1a1512 100%);
+  border-color: #8b3a3a;
+}
+
+.boss-card.theme-sekiro:hover {
+  box-shadow: 0 8px 16px rgba(204, 85, 85, 0.4);
+  border-color: #cc5555;
+}
+
+.boss-card.theme-sekiro .boss-header {
+  border-bottom-color: #8b3a3a;
+}
+
+.boss-card.theme-sekiro .boss-game {
+  background: #4d2020;
+  color: #e8c8b8;
+  border: 1px solid #8b3a3a;
+}
+
+.boss-card.theme-sekiro .info-label {
+  color: #b89888;
+}
+
+/* Dark Souls - Médiéval sombre */
+.boss-card.theme-darksouls {
+  background: linear-gradient(135deg, #2a2520 0%, #1a1510 100%);
+  border-color: #6b5a3a;
+}
+
+.boss-card.theme-darksouls:hover {
+  box-shadow: 0 8px 16px rgba(170, 120, 60, 0.4);
+  border-color: #aa783c;
+}
+
+.boss-card.theme-darksouls .boss-header {
+  border-bottom-color: #6b5a3a;
+}
+
+.boss-card.theme-darksouls .boss-game {
+  background: #3d3020;
+  color: #d4c4a4;
+  border: 1px solid #6b5a3a;
+}
+
+.boss-card.theme-darksouls .info-label {
+  color: #a49880;
+}
+
+/* Dark Souls 2 - Bleuté mystique */
+.boss-card.theme-darksouls2 {
+  background: linear-gradient(135deg, #242830 0%, #151820 100%);
+  border-color: #3a4a6b;
+}
+
+.boss-card.theme-darksouls2:hover {
+  box-shadow: 0 8px 16px rgba(85, 120, 170, 0.4);
+  border-color: #5578aa;
+}
+
+.boss-card.theme-darksouls2 .boss-header {
+  border-bottom-color: #3a4a6b;
+}
+
+.boss-card.theme-darksouls2 .boss-game {
+  background: #20304d;
+  color: #b8c8e8;
+  border: 1px solid #3a4a6b;
+}
+
+.boss-card.theme-darksouls2 .info-label {
+  color: #8898b8;
+}
+
+/* Dark Souls 3 - Orange cendré */
+.boss-card.theme-darksouls3 {
+  background: linear-gradient(135deg, #2a2620 0%, #1a1610 100%);
+  border-color: #7a5a3a;
+}
+
+.boss-card.theme-darksouls3:hover {
+  box-shadow: 0 8px 16px rgba(180, 100, 50, 0.4);
+  border-color: #b46432;
+}
+
+.boss-card.theme-darksouls3 .boss-header {
+  border-bottom-color: #7a5a3a;
+}
+
+.boss-card.theme-darksouls3 .boss-game {
+  background: #4d3420;
+  color: #e8c4a4;
+  border: 1px solid #7a5a3a;
+}
+
+.boss-card.theme-darksouls3 .info-label {
+  color: #b89070;
+}
+
+/* Demon's Souls - Bleu arcanique */
+.boss-card.theme-demonssouls {
+  background: linear-gradient(135deg, #202530 0%, #101520 100%);
+  border-color: #3a4a7a;
+}
+
+.boss-card.theme-demonssouls:hover {
+  box-shadow: 0 8px 16px rgba(85, 120, 200, 0.4);
+  border-color: #5578c8;
+}
+
+.boss-card.theme-demonssouls .boss-header {
+  border-bottom-color: #3a4a7a;
+}
+
+.boss-card.theme-demonssouls .boss-game {
+  background: #20305d;
+  color: #b8d4e8;
+  border: 1px solid #3a4a7a;
+}
+
+.boss-card.theme-demonssouls .info-label {
+  color: #88a8c8;
+}
+
+/* Elden Ring - Doré éthéré */
+.boss-card.theme-eldenring {
+  background: linear-gradient(135deg, #2a2820 0%, #1a1810 100%);
+  border-color: #7a6a3a;
+}
+
+.boss-card.theme-eldenring:hover {
+  box-shadow: 0 8px 16px rgba(200, 170, 80, 0.4);
+  border-color: #c8aa50;
+}
+
+.boss-card.theme-eldenring .boss-header {
+  border-bottom-color: #7a6a3a;
+}
+
+.boss-card.theme-eldenring .boss-game {
+  background: #4d4020;
+  color: #e8d8a4;
+  border: 1px solid #7a6a3a;
+}
+
+.boss-card.theme-eldenring .info-label {
+  color: #b8a870;
+}
+
 /* Header */
 .boss-header {
   margin-bottom: 20px;
