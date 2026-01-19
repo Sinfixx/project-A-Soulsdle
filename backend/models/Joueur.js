@@ -39,12 +39,6 @@ const joueurSchema = new mongoose.Schema(
       default: 0,
       min: 0,
     },
-
-    // Données techniques pour la gestion des streaks
-    dernierJourJoue: {
-      type: Date,
-      default: null,
-    },
   },
   {
     timestamps: true,

@@ -8,11 +8,10 @@ module.exports = () => {
   // GET /parties (PROTÉGÉ)
   router.get("/", authenticateToken, async (req, res) => {
     try {
-      const { page = 1, limit = 20, joueurId, terminee } = req.query;
+      const { page = 1, limit = 20, joueurId } = req.query;
 
       let filter = {};
       if (joueurId) filter.joueurId = joueurId;
-      if (terminee !== undefined) filter.terminee = terminee === "true";
 
       const skip = (page - 1) * parseInt(limit);
       const total = await Partie.countDocuments(filter);
@@ -56,67 +55,18 @@ module.exports = () => {
     }
   });
 
-  // PUT /parties/:id - Mise à jour avec gestion des streaks (PROTÉGÉ)
+  // PUT /parties/:id - Mise à jour (PROTÉGÉ)
   router.put("/:id", authenticateToken, async (req, res) => {
     try {
-      const anciennePartie = await Partie.findOne({ id: req.params.id });
-      if (!anciennePartie)
-        return res.status(404).json({ error: "Partie non trouvée" });
-
-      const nouvellePartie = await Partie.findOneAndUpdate(
+      const partie = await Partie.findOneAndUpdate(
         { id: req.params.id },
         req.body,
         { new: true, runValidators: true },
       );
 
-      // Si la partie vient d'être terminée, mettre à jour les statistiques du joueur
-      if (!anciennePartie.terminee && nouvellePartie.terminee) {
-        const joueur = await Joueur.findById(req.joueur._id);
-        if (joueur) {
-          // Incrémenter les parties gagnées si la partie est réussie
-          if (nouvellePartie.victoire) {
-            joueur.partiesGagnees += 1;
-          }
+      if (!partie) return res.status(404).json({ error: "Partie non trouvée" });
 
-          const aujourdhui = new Date().toISOString().split("T")[0];
-
-          if (!joueur.dernierJourJoue) {
-            // Première partie terminée
-            joueur.streakActuelle = 1;
-            joueur.meilleureStreak = 1;
-          } else {
-            const dernierJour = new Date(joueur.dernierJourJoue)
-              .toISOString()
-              .split("T")[0];
-
-            if (dernierJour === aujourdhui) {
-              // Même jour, ne rien changer aux streaks
-            } else {
-              const dernierJourDate = new Date(dernierJour);
-              const aujourdhuiDate = new Date(aujourdhui);
-              const diffJours = Math.floor(
-                (aujourdhuiDate - dernierJourDate) / (1000 * 60 * 60 * 24),
-              );
-
-              if (diffJours === 1) {
-                // Jour consécutif
-                joueur.streakActuelle += 1;
-                if (joueur.streakActuelle > joueur.meilleureStreak) {
-                  joueur.meilleureStreak = joueur.streakActuelle;
-                }
-              } else {
-                // Streak brisée
-                joueur.streakActuelle = 1;
-              }
-            }
-          }
-
-          joueur.dernierJourJoue = new Date(aujourdhui);
-          await joueur.save();
-        }
-      }
-
-      res.json(nouvellePartie);
+      res.json(partie);
     } catch (error) {
       res.status(400).json({ error: error.message });
     }

@@ -25,10 +25,6 @@ const partieSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    terminee: {
-      type: Boolean,
-      default: false,
-    },
     joueurId: {
       type: String,
       required: true,
@@ -37,12 +33,11 @@ const partieSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // Index pour améliorer les performances
 partieSchema.index({ joueurId: 1 });
-partieSchema.index({ terminee: 1 });
 partieSchema.index({ dateDebut: -1 });
 
 module.exports = mongoose.model("Partie", partieSchema);
