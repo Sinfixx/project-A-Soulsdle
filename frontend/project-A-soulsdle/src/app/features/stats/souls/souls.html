@@ -1,0 +1,90 @@
+<div class="souls-container">
+  <!-- En-tête de présentation -->
+  <div class="souls-header">
+    <h1 class="title">Les Soulslike de FromSoftware</h1>
+    <p class="subtitle">
+      Plongez dans l'univers des jeux qui ont redéfini le genre Action-RPG avec leur difficulté
+      légendaire, leur ambiance sombre et leur gameplay exigeant.
+    </p>
+    <a
+      href="https://fr.wikipedia.org/wiki/Souls"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="wiki-link"
+    >
+      En savoir plus sur les Souls
+    </a>
+    <div class="features">
+      <div class="feature-item">
+        <span class="feature-icon">⚔️</span>
+        <span class="feature-text">Combat tactique</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🌑</span>
+        <span class="feature-text">Ambiance sombre</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">💀</span>
+        <span class="feature-text">Difficulté élevée</span>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🎭</span>
+        <span class="feature-text">Lore profond</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div *ngIf="loading" class="loader-container">
+    <div class="loader"></div>
+    <p>Chargement des jeux...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error && !loading" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+
+  <!-- Liste des jeux -->
+  <div *ngIf="!loading && !error" class="games-section">
+    <h2 class="section-title">Liste des jeux pris en compte dans le Soulsdle :</h2>
+
+    <div class="games-grid">
+      <div *ngFor="let soul of souls" class="game-card">
+        <div class="game-header">
+          <span class="game-icon">{{ getGameIcon(soul.nom) }}</span>
+          <div class="game-title-section">
+            <h3 class="game-title">{{ soul.nom }}</h3>
+            <span class="game-year">{{ soul.annee }}</span>
+          </div>
+        </div>
+
+        <div class="game-content">
+          <div class="game-info-row">
+            <span class="info-label">Développeur</span>
+            <span class="info-value">{{ soul.developpeur }}</span>
+          </div>
+
+          <div class="game-info-row">
+            <span class="info-label">Genre</span>
+            <span class="info-value">{{ soul.genre }}</span>
+          </div>
+
+          <div class="game-info-row platforms-row">
+            <span class="info-label">Plateformes</span>
+            <div class="platforms">
+              <span *ngFor="let platform of soul.plateforme" class="platform-badge">
+                {{ platform }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message si pas de jeux -->
+  <div *ngIf="!loading && !error && souls.length === 0" class="no-games">
+    <p>Aucun jeu disponible pour le moment.</p>
+  </div>
+</div>
