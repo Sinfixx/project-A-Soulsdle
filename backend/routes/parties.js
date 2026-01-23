@@ -8,14 +8,19 @@ module.exports = () => {
   // GET /parties (PROTÉGÉ)
   router.get("/", authenticateToken, async (req, res) => {
     try {
-      const { page = 1, limit = 20, joueurId } = req.query;
+      const { page = 1, limit = 20, joueurId, sort = "desc" } = req.query;
 
       let filter = {};
       if (joueurId) filter.joueurId = joueurId;
 
       const skip = (page - 1) * parseInt(limit);
       const total = await Partie.countDocuments(filter);
+
+      // Définir l'ordre de tri (desc = plus récent d'abord, asc = plus ancien d'abord)
+      const sortOrder = sort === "asc" ? 1 : -1;
+
       const parties = await Partie.find(filter)
+        .sort({ dateDebut: sortOrder })
         .skip(skip)
         .limit(parseInt(limit));
 

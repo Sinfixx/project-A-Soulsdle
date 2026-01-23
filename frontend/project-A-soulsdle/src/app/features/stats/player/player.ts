@@ -43,6 +43,8 @@ export class Player implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    // Réinitialiser le flag à chaque visite
+    this.statsLoaded = false;
     this.loadPlayerData();
   }
 
@@ -56,49 +58,83 @@ export class Player implements OnInit, OnDestroy {
     this.loading = true;
     this.error = null;
 
-    // Récupérer le profil utilisateur (une seule fois)
-    this.userSubscription = this.authService.currentUser$.subscribe({
-      next: (user) => {
-        console.log('User received:', user);
-        this.currentUser = user;
-        if (user && !this.statsLoaded) {
-          this.statsLoaded = true; // Marquer comme chargé pour éviter les multiples appels
-          this.loadPlayerStats(user.id);
-        } else if (!user) {
-          console.log('No user found');
-          this.loading = false;
-          this.cdr.detectChanges();
-        }
+    // Forcer le rechargement du profil depuis l'API pour avoir les dernières données
+    this.authService.getProfile().subscribe({
+      next: () => {
+        console.log('Profile refreshed from API');
+        // Maintenant récupérer le profil à jour
+        this.userSubscription = this.authService.currentUser$.subscribe({
+          next: (user) => {
+            console.log('User received:', user);
+            this.currentUser = user;
+            if (user && !this.statsLoaded) {
+              this.statsLoaded = true; // Marquer comme chargé pour éviter les multiples appels
+              this.loadPlayerStats(user.id);
+            } else if (!user) {
+              console.log('No user found');
+              this.loading = false;
+              this.cdr.detectChanges();
+            }
+          },
+          error: (err) => {
+            console.error('Erreur lors du chargement du profil:', err);
+            this.error = 'Erreur lors du chargement du profil';
+            this.loading = false;
+          },
+        });
       },
       error: (err) => {
-        console.error('Erreur lors du chargement du profil:', err);
-        this.error = 'Erreur lors du chargement du profil';
-        this.loading = false;
+        console.error('Erreur lors du rafraîchissement du profil:', err);
+        // En cas d'erreur, continuer avec le profil en cache
+        this.userSubscription = this.authService.currentUser$.subscribe({
+          next: (user) => {
+            console.log('User received (from cache):', user);
+            this.currentUser = user;
+            if (user && !this.statsLoaded) {
+              this.statsLoaded = true;
+              this.loadPlayerStats(user.id);
+            } else if (!user) {
+              console.log('No user found');
+              this.loading = false;
+              this.cdr.detectChanges();
+            }
+          },
+          error: (err) => {
+            console.error('Erreur lors du chargement du profil:', err);
+            this.error = 'Erreur lors du chargement du profil';
+            this.loading = false;
+          },
+        });
       },
     });
   }
 
   loadPlayerStats(joueurId: string) {
     console.log('Loading stats for joueur:', joueurId);
-    console.log('API URL:', `${this.apiUrl}/parties?joueurId=${joueurId}&limit=10`);
+    console.log('API URL:', `${this.apiUrl}/parties?joueurId=${joueurId}&limit=5&sort=desc`);
 
-    // Récupérer l'historique des parties du joueur
+    // Récupérer les 5 dernières parties du joueur (triées par date décroissante)
     this.http
-      .get<{ parties: Partie[] }>(`${this.apiUrl}/parties?joueurId=${joueurId}&limit=10`)
+      .get<{
+        parties: Partie[];
+        pagination: { total: number; page: number; limit: number; totalPages: number };
+      }>(`${this.apiUrl}/parties?joueurId=${joueurId}&limit=5&sort=desc`)
       .subscribe({
         next: (response) => {
           console.log('Parties received:', response);
           const parties = response.parties || [];
+          const totalParties = response.pagination?.total || parties.length;
+
           const moyenneTentatives =
             parties.length > 0
               ? parties.reduce((sum, p) => sum + p.tentatives, 0) / parties.length
               : 0;
 
           this.stats = {
-            totalParties: parties.length,
+            totalParties: totalParties, // Utiliser le total de la pagination
             moyenneTentatives: Math.round(moyenneTentatives * 10) / 10,
             dernierePartie: parties.length > 0 ? parties[0] : null,
-            historique: parties.slice(0, 5),
+            historique: parties, // Les 5 dernières parties (déjà triées par l'API)
           };
           this.loading = false;
           console.log('Stats loaded successfully, loading set to false');
