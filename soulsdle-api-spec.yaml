@@ -23,6 +23,120 @@ paths:
               schema:
                 $ref: "#/components/schemas/ApiInfo"
 
+  /auth/register:
+    post:
+      tags:
+        - Authentification
+      summary: Inscription d'un nouveau joueur
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pseudo:
+                  type: string
+                  example: "SoulsHunter"
+                email:
+                  type: string
+                  format: email
+                  example: "soulshunter@example.com"
+                password:
+                  type: string
+                  format: password
+                  minLength: 6
+                  example: "password123"
+              required:
+                - pseudo
+                - email
+                - password
+      responses:
+        "201":
+          description: Joueur créé avec succès
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "400":
+          description: Données invalides (pseudo ou email déjà utilisé)
+
+  /auth/login:
+    post:
+      tags:
+        - Authentification
+      summary: Connexion d'un joueur
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: "soulshunter@example.com"
+                password:
+                  type: string
+                  format: password
+                  example: "password123"
+              required:
+                - email
+                - password
+      responses:
+        "200":
+          description: Connexion réussie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: Email ou mot de passe incorrect
+
+  /auth/me:
+    get:
+      tags:
+        - Authentification
+      summary: Récupérer le profil du joueur connecté
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Profil du joueur
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  joueur:
+                    $ref: "#/components/schemas/JoueurProfile"
+        "401":
+          description: Non authentifié
+
+  /auth/verify:
+    post:
+      tags:
+        - Authentification
+      summary: Vérifier la validité d'un token JWT
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Token valide
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                    example: true
+                  joueur:
+                    $ref: "#/components/schemas/JoueurProfile"
+        "401":
+          description: Token invalide
+
   /boss:
     get:
       tags:
@@ -389,12 +503,14 @@ paths:
           required: false
           schema:
             type: string
-        - name: reussie
+        - name: sort
           in: query
-          description: Filtrer par statut de réussite
+          description: Ordre de tri par date (desc = plus récent d'abord, asc = plus ancien d'abord)
           required: false
           schema:
-            type: boolean
+            type: string
+            enum: [asc, desc]
+            default: desc
       responses:
         "200":
           description: Liste des parties
@@ -495,6 +611,13 @@ paths:
                 $ref: "#/components/schemas/Statistiques"
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: "Token JWT obtenu lors de la connexion ou l'inscription. Format: Authorization: Bearer <token>"
+
   schemas:
     ApiInfo:
       type: object
@@ -521,7 +644,7 @@ components:
           example: "Père Gascoigne"
         jeu:
           type: string
-          enum: [Bloodborne, Sekiro, "Dark Souls III"]
+          enum: [Bloodborne, Sekiro, "Dark Souls III", "Dark Souls"]
           example: "Bloodborne"
         genre:
           type: string
@@ -638,11 +761,12 @@ components:
 
     Statistiques:
       type: object
+      description: Statistiques globales du jeu (calculées et mises en cache)
       properties:
         id:
           type: string
-          description: Identifiant des statistiques
-          example: "stats-globales"
+          description: Identifiant des statistiques (généralement "global")
+          example: "global"
         totalParties:
           type: integer
           description: Nombre total de parties jouées
@@ -651,25 +775,49 @@ components:
           type: integer
           description: Nombre total de joueurs inscrits
           example: 25
-        bossPlusDevine:
-          type: string
-          description: Nom du boss le plus deviné
-          example: "Père Gascoigne"
-        moyenneTentatives:
+        bossLesPlusDevines:
+          type: array
+          description: Liste des boss les plus souvent trouvés
+          items:
+            type: object
+            properties:
+              nom:
+                type: string
+                example: "Père Gascoigne"
+              fois:
+                type: integer
+                description: Nombre de fois que ce boss a été trouvé
+                example: 42
+        bossLesMoinsTrouves:
+          type: array
+          description: Liste des boss les moins souvent trouvés
+          items:
+            type: object
+            properties:
+              nom:
+                type: string
+                example: "Orphelin de Kos"
+              tauxEchec:
+                type: number
+                format: float
+                description: Taux d'échec (entre 0 et 1)
+                example: 0.85
+        moyenneEssais:
           type: number
           format: float
           description: Moyenne des tentatives par partie
           example: 4.2
-        tauxCompletion:
-          type: number
-          format: float
-          description: Taux de parties terminées
-          example: 0.75
         derniereMaj:
           type: string
           format: date-time
           description: Dernière mise à jour des statistiques
           example: "2024-01-15T12:00:00Z"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
       required:
         - id
         - totalParties
@@ -715,28 +863,72 @@ components:
       properties:
         id:
           type: string
-          description: Identifiant unique du joueur
-          example: "joueur-001"
+          description: Identifiant unique du joueur (généré automatiquement)
+          example: "65a1b2c3d4e5f6g7h8i9j0k1"
         pseudo:
           type: string
-          description: Pseudonyme du joueur
+          description: Pseudonyme du joueur (unique)
           example: "SoulsHunter"
         email:
           type: string
           format: email
-          description: Adresse email du joueur
+          description: Adresse email du joueur (unique)
           example: "soulshunter@example.com"
+        password:
+          type: string
+          format: password
+          description: Mot de passe hashé (non renvoyé dans les réponses)
+          minLength: 6
         partiesGagnees:
           type: integer
           description: Nombre de parties gagnées
+          default: 0
           example: 12
         streakActuelle:
           type: integer
           description: Série actuelle de victoires consécutives
+          default: 0
           example: 5
         meilleureStreak:
           type: integer
           description: Meilleure série de victoires consécutives
+          default: 0
+          example: 12
+        createdAt:
+          type: string
+          format: date-time
+          description: Date de création du compte
+        updatedAt:
+          type: string
+          format: date-time
+          description: Date de dernière mise à jour
+      required:
+        - pseudo
+        - email
+        - password
+
+    JoueurProfile:
+      type: object
+      description: Profil public du joueur (sans mot de passe)
+      properties:
+        id:
+          type: string
+          example: "65a1b2c3d4e5f6g7h8i9j0k1"
+        pseudo:
+          type: string
+          example: "SoulsHunter"
+        email:
+          type: string
+          format: email
+          example: "soulshunter@example.com"
+        partiesGagnees:
+          type: integer
+          example: 12
+        streakActuelle:
+          type: integer
+          example: 5
+        meilleureStreak:
+          type: integer
           example: 12
       required:
         - id
@@ -745,6 +937,23 @@ components:
         - partiesGagnees
         - streakActuelle
         - meilleureStreak
+
+    AuthResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Connexion réussie"
+        token:
+          type: string
+          description: Token JWT pour l'authentification
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        joueur:
+          $ref: "#/components/schemas/JoueurProfile"
+      required:
+        - message
+        - token
+        - joueur
 
     Pagination:
       type: object
