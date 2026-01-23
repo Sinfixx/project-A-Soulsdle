@@ -597,18 +597,165 @@ paths:
         "404":
           description: Partie non trouvée
 
-  /stats:
+  /achievements:
     get:
       tags:
-        - Statistiques
-      summary: Statistiques globales du jeu
+        - Achievements
+      summary: Liste tous les achievements avec statistiques globales
       responses:
         "200":
-          description: Statistiques du jeu
+          description: Liste des achievements
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Statistiques"
+                type: object
+                properties:
+                  achievements:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: "#/components/schemas/Achievement"
+                        - type: object
+                          properties:
+                            totalDeblocages:
+                              type: integer
+                              description: Nombre de joueurs ayant débloqué cet achievement
+                            pourcentage:
+                              type: number
+                              format: float
+                              description: Pourcentage de joueurs ayant débloqué
+
+  /achievements/me:
+    get:
+      tags:
+        - Achievements
+      summary: Achievements du joueur connecté
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Achievements du joueur
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  unlocked:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: "#/components/schemas/Achievement"
+                        - type: object
+                          properties:
+                            dateDeblocage:
+                              type: string
+                              format: date-time
+                  inProgress:
+                    type: array
+                    items:
+                      allOf:
+                        - $ref: "#/components/schemas/Achievement"
+                        - type: object
+                          properties:
+                            progression:
+                              type: number
+                              format: float
+                              description: Progression entre 0 et 1
+                            progressionActuelle:
+                              type: integer
+                            progressionRequise:
+                              type: integer
+                  totalUnlocked:
+                    type: integer
+                  totalAchievements:
+                    type: integer
+        "401":
+          description: Non authentifié
+
+  /achievements/{id}:
+    get:
+      tags:
+        - Achievements
+      summary: Détails d'un achievement avec statistiques
+      parameters:
+        - name: id
+          in: path
+          description: ID de l'achievement
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Détails de l'achievement
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Achievement"
+                  - type: object
+                    properties:
+                      totalDeblocages:
+                        type: integer
+                      pourcentage:
+                        type: number
+                        format: float
+        "404":
+          description: Achievement non trouvé
+
+  /achievements/{id}/check:
+    post:
+      tags:
+        - Achievements
+      summary: Vérifier manuellement un achievement pour le joueur connecté
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          description: ID de l'achievement
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Résultat de la vérification
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  unlocked:
+                    type: boolean
+                  achievement:
+                    $ref: "#/components/schemas/Achievement"
+        "401":
+          description: Non authentifié
+        "404":
+          description: Achievement non trouvé
+
+  /achievements/check-all:
+    post:
+      tags:
+        - Achievements
+      summary: Vérifier tous les achievements pour le joueur connecté
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Liste des nouveaux achievements débloqués
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  newAchievements:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Achievement"
+                  count:
+                    type: integer
+        "401":
+          description: Non authentifié
 
 components:
   securitySchemes:
@@ -759,71 +906,6 @@ components:
               type: string
               enum: [correct, incorrect]
 
-    Statistiques:
-      type: object
-      description: Statistiques globales du jeu (calculées et mises en cache)
-      properties:
-        id:
-          type: string
-          description: Identifiant des statistiques (généralement "global")
-          example: "global"
-        totalParties:
-          type: integer
-          description: Nombre total de parties jouées
-          example: 150
-        totalJoueurs:
-          type: integer
-          description: Nombre total de joueurs inscrits
-          example: 25
-        bossLesPlusDevines:
-          type: array
-          description: Liste des boss les plus souvent trouvés
-          items:
-            type: object
-            properties:
-              nom:
-                type: string
-                example: "Père Gascoigne"
-              fois:
-                type: integer
-                description: Nombre de fois que ce boss a été trouvé
-                example: 42
-        bossLesMoinsTrouves:
-          type: array
-          description: Liste des boss les moins souvent trouvés
-          items:
-            type: object
-            properties:
-              nom:
-                type: string
-                example: "Orphelin de Kos"
-              tauxEchec:
-                type: number
-                format: float
-                description: Taux d'échec (entre 0 et 1)
-                example: 0.85
-        moyenneEssais:
-          type: number
-          format: float
-          description: Moyenne des tentatives par partie
-          example: 4.2
-        derniereMaj:
-          type: string
-          format: date-time
-          description: Dernière mise à jour des statistiques
-          example: "2024-01-15T12:00:00Z"
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-      required:
-        - id
-        - totalParties
-        - totalJoueurs
-        - derniereMaj
-
     Souls:
       type: object
       properties:
@@ -954,6 +1036,85 @@ components:
         - message
         - token
         - joueur
+
+    Achievement:
+      type: object
+      description: Achievement déblocable par les joueurs
+      properties:
+        id:
+          type: string
+          description: Identifiant unique de l'achievement
+          example: "achievement-first-blood"
+        nom:
+          type: string
+          description: Nom de l'achievement
+          example: "Premier sang"
+        description:
+          type: string
+          description: Description de comment débloquer l'achievement
+          example: "Gagner votre première partie"
+        icone:
+          type: string
+          description: Emoji représentant l'achievement
+          example: "🩸"
+        categorie:
+          type: string
+          enum: [Progression, Compétence, Collection, Spécial]
+          description: Catégorie de l'achievement
+          example: "Progression"
+        rarete:
+          type: string
+          enum: [Commun, Rare, Épique, Légendaire]
+          description: Rareté de l'achievement
+          example: "Commun"
+        condition:
+          type: object
+          description: Conditions de déblocage
+          properties:
+            type:
+              type: string
+              enum:
+                - parties_gagnees
+                - streak
+                - meilleure_streak
+                - tentatives_parfaites
+                - victoire_jeu
+                - total_parties
+              description: Type de condition
+              example: "parties_gagnees"
+            valeur:
+              type: integer
+              description: Valeur à atteindre
+              example: 1
+            jeu:
+              type: string
+              description: Jeu spécifique (pour victoire_jeu)
+              example: "Bloodborne"
+            tentativesMax:
+              type: integer
+              description: Nombre maximum de tentatives (pour tentatives_parfaites)
+              example: 3
+          required:
+            - type
+            - valeur
+        ordre:
+          type: integer
+          description: Ordre d'affichage
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - nom
+        - description
+        - icone
+        - categorie
+        - rarete
+        - condition
 
     Pagination:
       type: object

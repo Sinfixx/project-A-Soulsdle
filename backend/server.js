@@ -25,7 +25,7 @@ const startServer = async () => {
     const joueursRoutes = require("./routes/joueurs");
     const partiesRoutes = require("./routes/parties");
     const jeuRoutes = require("./routes/jeu");
-    const statsRoutes = require("./routes/stats");
+    const achievementsRoutes = require("./routes/achievements");
 
     app.use("/auth", authRoutes());
     app.use("/boss", bossRoutes());
@@ -33,7 +33,7 @@ const startServer = async () => {
     app.use("/joueurs", joueursRoutes());
     app.use("/parties", partiesRoutes());
     app.use("/jeu", jeuRoutes());
-    app.use("/stats", statsRoutes());
+    app.use("/achievements", achievementsRoutes());
 
     // Swagger Documentation
     const swaggerDocument = YAML.load(

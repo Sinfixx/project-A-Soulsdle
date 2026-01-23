@@ -4,6 +4,7 @@ const Boss = require("../models/Boss");
 const Partie = require("../models/Partie");
 const Joueur = require("../models/Joueur");
 const { authenticateToken } = require("../middleware/auth");
+const achievementService = require("../services/achievementService");
 
 // Session de jeu en mémoire
 let sessions = {};
@@ -156,6 +157,31 @@ module.exports = () => {
             }
 
             await joueur.save();
+
+            // Vérifier et débloquer les achievements
+            const newAchievements =
+              await achievementService.checkAndUnlockAchievements(
+                session.joueurId,
+              );
+
+            // Ajouter les nouveaux achievements à la réponse
+            if (newAchievements.length > 0) {
+              res.json({
+                proposition,
+                correct,
+                indices,
+                tentatives: session.propositions.length,
+                message: `Bravo ! C'était bien ${session.bossSecret} !`,
+                newAchievements: newAchievements.map((a) => ({
+                  id: a.id,
+                  nom: a.nom,
+                  description: a.description,
+                  icone: a.icone,
+                  rarete: a.rarete,
+                })),
+              });
+              return;
+            }
           }
 
           // Supprimer la session en mémoire
