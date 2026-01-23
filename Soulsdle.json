@@ -976,7 +976,7 @@
       "annee": 2015,
       "developpeur": "FromSoftware",
       "genre": "Action RPG",
-      "plateforme": ["PS4", "PC"]
+      "plateforme": ["PS4"]
     },
     {
       "id": "sekiro",
@@ -1001,54 +1001,6 @@
       "developpeur": "FromSoftware",
       "genre": "Action RPG",
       "plateforme": ["PS3", "PS4", "PC"]
-    }
-  ],
-  "parties": [
-    {
-      "id": "partie-001",
-      "dateDebut": "2024-01-15T10:30:00Z",
-      "dateFin": "2024-01-15T10:45:00Z",
-      "bossSecret": "Père Gascoigne",
-      "tentatives": 4,
-      "terminee": true,
-      "joueurId": "joueur-001"
-    }
-  ],
-  "joueurs": [
-    {
-      "id": "joueur-001",
-      "pseudo": "Marex",
-      "dateInscription": "2024-01-01T00:00:00Z",
-      "partiesJouees": 15,
-      "partiesTerminees": 12,
-      "meilleurScore": 2,
-      "bossFavoris": ["Père Gascoigne", "Genichiro Ashina"],
-      "streakActuelle": 5,
-      "meilleureStreak": 12,
-      "dernierJourJoue": "2024-01-15"
-    },
-    {
-      "id": "joueur-002",
-      "pseudo": "TenchiBastien",
-      "dateInscription": "2025-11-04T10:15:10.059Z",
-      "partiesJouees": 0,
-      "partiesTerminees": 0,
-      "meilleurScore": 0,
-      "bossFavoris": ["Danseuse de la Vallée Boréale"],
-      "streakActuelle": 0,
-      "meilleureStreak": 0,
-      "dernierJourJoue": null
-    }
-  ],
-  "statistiques": [
-    {
-      "id": "stats-globales",
-      "totalParties": 150,
-      "totalJoueurs": 25,
-      "bossPlusDevine": "Lady Maria de la Tour Astrale",
-      "moyenneTentatives": 4.2,
-      "tauxCompletion": 0.75,
-      "derniereMaj": "2024-01-15T12:00:00Z"
     }
   ]
 }
