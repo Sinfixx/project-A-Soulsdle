@@ -1,7 +1,7 @@
 .achievement-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
   padding: 2rem;
+  color: #fff;
 }
 
 /* Loader */
@@ -12,11 +12,12 @@
   align-items: center;
   min-height: 60vh;
   gap: 1rem;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .loader {
-  border: 4px solid #333;
-  border-top: 4px solid #b8860b;
+  border: 4px solid #1a1a1a;
+  border-top: 4px solid #fff;
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -34,14 +35,14 @@
 
 /* Error */
 .error-message {
-  background: rgba(244, 67, 54, 0.1);
-  border: 1px solid #f44336;
+  background: rgba(40, 40, 40, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 2rem auto;
   max-width: 600px;
   text-align: center;
-  color: #f44336;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* En-tête */
@@ -54,11 +55,9 @@
   font-size: 3rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, #b8860b 0%, #ffd700 50%, #b8860b 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 0 20px rgba(184, 134, 11, 0.3);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .progress-summary {
@@ -70,7 +69,7 @@
   display: block;
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #b8860b;
+  color: rgba(255, 255, 255, 0.7);
   font-weight: 600;
 }
 
@@ -80,14 +79,14 @@
   background: rgba(255, 255, 255, 0.1);
   border-radius: 6px;
   overflow: hidden;
-  border: 1px solid rgba(184, 134, 11, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .progress-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, #b8860b 0%, #ffd700 50%, #b8860b 100%);
+  background: linear-gradient(90deg, #333 0%, #666 50%, #999 100%);
   transition: width 0.5s ease;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 /* Filtres */
@@ -107,13 +106,13 @@
 
 .filter-group label {
   font-weight: 600;
-  color: #b8860b;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .filter-select {
   padding: 0.5rem 1rem;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(184, 134, 11, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 6px;
   color: #fff;
   font-size: 1rem;
@@ -123,13 +122,18 @@
 
 .filter-select:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: #b8860b;
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .filter-select:focus {
   outline: none;
-  border-color: #ffd700;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  border-color: #fff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.filter-select option {
+  background: #1a1a1a;
+  color: #fff;
 }
 
 /* Sections */
@@ -141,8 +145,8 @@
   font-size: 1.8rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
-  color: #b8860b;
-  border-bottom: 2px solid rgba(184, 134, 11, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
   padding-bottom: 0.5rem;
 }
 
@@ -156,7 +160,7 @@
 /* Carte d'achievement */
 .achievement-card {
   position: relative;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(20, 20, 20, 0.8);
   border: 2px solid rgba(255, 255, 255, 0.1);
   border-radius: 12px;
   padding: 1.5rem;
@@ -179,21 +183,22 @@
 
 .achievement-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background: rgba(30, 30, 30, 0.9);
 }
 
-/* Rareté Commun */
+/* Rareté Commun - Gris */
 .achievement-card.rarity-commun {
-  border-color: rgba(76, 175, 80, 0.3);
-  color: #4caf50;
+  border-color: rgba(150, 150, 150, 0.3);
+  color: #999;
 }
 
 .achievement-card.rarity-commun:hover {
-  border-color: #4caf50;
-  box-shadow: 0 10px 30px rgba(76, 175, 80, 0.2);
+  border-color: #999;
+  box-shadow: 0 10px 30px rgba(150, 150, 150, 0.2);
 }
 
-/* Rareté Rare */
+/* Rareté Rare - Bleu */
 .achievement-card.rarity-rare {
   border-color: rgba(33, 150, 243, 0.3);
   color: #2196f3;
@@ -201,10 +206,10 @@
 
 .achievement-card.rarity-rare:hover {
   border-color: #2196f3;
-  box-shadow: 0 10px 30px rgba(33, 150, 243, 0.2);
+  box-shadow: 0 10px 30px rgba(33, 150, 243, 0.3);
 }
 
-/* Rareté Épique */
+/* Rareté Épique - Violet */
 .achievement-card.rarity-épique {
   border-color: rgba(156, 39, 176, 0.3);
   color: #9c27b0;
@@ -212,31 +217,62 @@
 
 .achievement-card.rarity-épique:hover {
   border-color: #9c27b0;
-  box-shadow: 0 10px 30px rgba(156, 39, 176, 0.2);
+  box-shadow: 0 10px 30px rgba(156, 39, 176, 0.3);
 }
 
-/* Rareté Légendaire */
+/* Rareté Légendaire - Aurore Boréale (bleu/violet/vert) */
 .achievement-card.rarity-légendaire {
-  border-color: rgba(255, 152, 0, 0.3);
-  color: #ff9800;
-  background: linear-gradient(135deg, rgba(255, 152, 0, 0.05) 0%, rgba(255, 215, 0, 0.05) 100%);
+  border: 2px solid;
+  border-color: #00d4ff;
+  color: #00d4ff;
+  background: rgba(20, 20, 20, 0.8);
+  position: relative;
+  animation: aurora-border-color 3s ease infinite;
+}
+
+@keyframes aurora-border-color {
+  0%,
+  100% {
+    border-color: #00d4ff;
+  }
+  33% {
+    border-color: #9c27b0;
+  }
+  66% {
+    border-color: #00ff88;
+  }
 }
 
 .achievement-card.rarity-légendaire:hover {
-  border-color: #ff9800;
-  box-shadow: 0 10px 30px rgba(255, 152, 0, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 212, 255, 0.4);
 }
 
 .achievement-card.rarity-légendaire::before {
-  animation: shimmer 3s infinite linear;
+  background: linear-gradient(90deg, transparent, #00d4ff, #9c27b0, #00ff88, transparent);
+  animation: aurora-shimmer 3s infinite linear;
 }
 
-@keyframes shimmer {
+@keyframes aurora-border {
+  0%,
+  100% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  50% {
+    filter: hue-rotate(30deg) brightness(1.2);
+  }
+}
+
+@keyframes aurora-shimmer {
   0% {
     transform: translateX(-100%);
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
   }
   100% {
     transform: translateX(100%);
+    opacity: 0.5;
   }
 }
 
@@ -249,8 +285,8 @@
 }
 
 .achievement-icon.locked {
-  opacity: 0.5;
-  filter: grayscale(100%) drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+  opacity: 0.3;
+  filter: grayscale(100%) drop-shadow(0 0 5px rgba(255, 255, 255, 0.1));
 }
 
 /* Informations */
@@ -266,7 +302,7 @@
 }
 
 .achievement-description {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.95rem;
   line-height: 1.5;
   margin-bottom: 0.75rem;
@@ -279,43 +315,70 @@
   flex-wrap: wrap;
 }
 
-.achievement-category,
-.achievement-rarity {
+.achievement-category {
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
   font-size: 0.85rem;
   font-weight: 600;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.achievement-rarity {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid currentColor;
 }
 
 .achievement-rarity.rarity-commun {
-  background: rgba(76, 175, 80, 0.2);
-  border-color: #4caf50;
-  color: #4caf50;
+  background: rgba(150, 150, 150, 0.2);
+  color: #999;
 }
 
 .achievement-rarity.rarity-rare {
   background: rgba(33, 150, 243, 0.2);
-  border-color: #2196f3;
   color: #2196f3;
 }
 
 .achievement-rarity.rarity-épique {
   background: rgba(156, 39, 176, 0.2);
-  border-color: #9c27b0;
   color: #9c27b0;
 }
 
 .achievement-rarity.rarity-légendaire {
-  background: rgba(255, 152, 0, 0.2);
-  border-color: #ff9800;
-  color: #ff9800;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 212, 255, 0.2),
+    rgba(156, 39, 176, 0.2),
+    rgba(0, 255, 136, 0.2)
+  );
+  color: #00d4ff;
+  border: 1px solid #00d4ff;
+  animation: aurora-text 3s ease infinite;
+}
+
+@keyframes aurora-text {
+  0%,
+  100% {
+    color: #00d4ff;
+    border-color: #00d4ff;
+  }
+  33% {
+    color: #cf22f1;
+    border-color: #cf22f1;
+  }
+  66% {
+    color: #00ff88;
+    border-color: #00ff88;
+  }
 }
 
 .achievement-date {
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.5);
   margin-top: 0.5rem;
 }
 
@@ -331,14 +394,15 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #4caf50 0%, #81c784 100%);
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
   color: #fff;
   font-weight: bold;
-  box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 /* Progression */
@@ -354,7 +418,7 @@
 }
 
 .progress-label {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .progress-value {
@@ -366,19 +430,49 @@
   height: 8px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid currentColor;
+  border-radius: 4px;
 }
 
 .achievement-card.in-progress .progress-bar-fill {
   height: 100%;
   transition: width 0.5s ease;
   box-shadow: 0 0 10px currentColor;
+  background: currentColor;
+}
+
+/* Couleurs des barres de progression selon rareté */
+.achievement-card.rarity-commun .progress-bar-fill {
+  background: #999;
+}
+
+.achievement-card.rarity-rare .progress-bar-fill {
+  background: #2196f3;
+}
+
+.achievement-card.rarity-épique .progress-bar-fill {
+  background: #9c27b0;
+}
+
+.achievement-card.rarity-légendaire .progress-bar-fill {
+  background: linear-gradient(90deg, #00d4ff, #9c27b0, #00ff88, #00d4ff);
+  background-size: 200% 100%;
+  animation: aurora-progress 3s linear infinite;
+}
+
+@keyframes aurora-progress {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
 }
 
 /* Message vide */
 .no-achievements {
   text-align: center;
   padding: 3rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.4);
   font-size: 1.1rem;
 }
 
