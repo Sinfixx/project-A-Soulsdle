@@ -1,0 +1,131 @@
+<div class="achievement-container">
+  <!-- Loader -->
+  <div *ngIf="loading" class="loader-container">
+    <div class="loader"></div>
+    <p>Chargement des achievements...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error && !loading" class="error-message">
+    <p>{{ error }}</p>
+  </div>
+
+  <!-- Contenu principal -->
+  <div *ngIf="!loading && achievements" class="achievements-content">
+    <!-- En-tête -->
+    <div class="achievements-header">
+      <h1 class="page-title">Achievements</h1>
+      <div class="progress-summary">
+        <span class="progress-text">
+          {{ achievements.totalUnlocked }} / {{ achievements.totalAchievements }} débloqués
+        </span>
+        <div class="progress-bar-container">
+          <div
+            class="progress-bar-fill"
+            [style.width.%]="(achievements.totalUnlocked / achievements.totalAchievements) * 100"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtres -->
+    <div class="filters">
+      <div class="filter-group">
+        <label>Catégorie:</label>
+        <select [(ngModel)]="selectedCategory" class="filter-select">
+          <option value="all">Toutes</option>
+          <option value="Progression">Progression</option>
+          <option value="Compétence">Compétence</option>
+          <option value="Collection">Collection</option>
+          <option value="Spécial">Spécial</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Rareté:</label>
+        <select [(ngModel)]="selectedRarity" class="filter-select">
+          <option value="all">Toutes</option>
+          <option value="Commun">Commun</option>
+          <option value="Rare">Rare</option>
+          <option value="Épique">Épique</option>
+          <option value="Légendaire">Légendaire</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Achievements débloqués -->
+    <div *ngIf="getFilteredUnlocked().length > 0" class="achievements-section">
+      <h2 class="section-title">✅ Débloqués ({{ getFilteredUnlocked().length }})</h2>
+      <div class="achievements-grid">
+        <div
+          *ngFor="let achievement of getFilteredUnlocked()"
+          class="achievement-card unlocked"
+          [ngClass]="getRarityClass(achievement.rarete)"
+        >
+          <div class="achievement-icon">{{ achievement.icone }}</div>
+          <div class="achievement-info">
+            <h3 class="achievement-name">{{ achievement.nom }}</h3>
+            <p class="achievement-description">{{ achievement.description }}</p>
+            <div class="achievement-meta">
+              <span class="achievement-category">{{ achievement.categorie }}</span>
+              <span class="achievement-rarity" [ngClass]="getRarityClass(achievement.rarete)">
+                {{ achievement.rarete }}
+              </span>
+            </div>
+            <div class="achievement-date" *ngIf="achievement.dateDeblocage">
+              <span>🗓️ Débloqué le {{ formatDate(achievement.dateDeblocage) }}</span>
+            </div>
+          </div>
+          <div class="achievement-badge">
+            <span class="badge-check">✓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements en cours -->
+    <div *ngIf="getFilteredInProgress().length > 0" class="achievements-section">
+      <h2 class="section-title">⏳ En cours ({{ getFilteredInProgress().length }})</h2>
+      <div class="achievements-grid">
+        <div
+          *ngFor="let achievement of getFilteredInProgress()"
+          class="achievement-card in-progress"
+          [ngClass]="getRarityClass(achievement.rarete)"
+        >
+          <div class="achievement-icon locked">{{ achievement.icone }}</div>
+          <div class="achievement-info">
+            <h3 class="achievement-name">{{ achievement.nom }}</h3>
+            <p class="achievement-description">{{ achievement.description }}</p>
+            <div class="achievement-meta">
+              <span class="achievement-category">{{ achievement.categorie }}</span>
+              <span class="achievement-rarity" [ngClass]="getRarityClass(achievement.rarete)">
+                {{ achievement.rarete }}
+              </span>
+            </div>
+            <div class="achievement-progress">
+              <div class="progress-info">
+                <span class="progress-label">Progression</span>
+                <span class="progress-value">{{ getProgressText(achievement) }}</span>
+              </div>
+              <div class="progress-bar-container">
+                <div
+                  class="progress-bar-fill"
+                  [style.width.%]="getProgressPercentage(achievement)"
+                  [style.background-color]="getProgressBarColor(achievement.rarete)"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message si pas d'achievements -->
+    <div
+      *ngIf="getFilteredUnlocked().length === 0 && getFilteredInProgress().length === 0"
+      class="no-achievements"
+    >
+      <p>Aucun achievement ne correspond aux filtres sélectionnés.</p>
+    </div>
+  </div>
+</div>

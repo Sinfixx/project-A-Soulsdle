@@ -20,7 +20,8 @@ module.exports = () => {
   // GET /achievements/me - Achievements du joueur connecté
   router.get("/me", authenticateToken, async (req, res) => {
     try {
-      const joueurId = req.user.id;
+      const joueurId = req.joueur._id;
+
       const { unlocked, inProgress } =
         await achievementService.getJoueurAchievements(joueurId);
 
@@ -57,7 +58,7 @@ module.exports = () => {
   // POST /achievements/:id/check - Vérifier manuellement un achievement pour un joueur (admin/debug)
   router.post("/:id/check", authenticateToken, async (req, res) => {
     try {
-      const joueurId = req.user.id;
+      const joueurId = req.joueur._id;
       const achievementId = req.params.id;
 
       const achievement = await Achievement.findOne({ id: achievementId });
@@ -82,7 +83,7 @@ module.exports = () => {
   // POST /achievements/check-all - Vérifier tous les achievements pour le joueur connecté
   router.post("/check-all", authenticateToken, async (req, res) => {
     try {
-      const joueurId = req.user.id;
+      const joueurId = req.joueur._id;
       const newAchievements =
         await achievementService.checkAndUnlockAchievements(joueurId);
 

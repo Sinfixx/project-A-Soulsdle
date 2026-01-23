@@ -195,27 +195,39 @@ class AchievementService {
     });
 
     // Mapper les détails
-    const unlockedWithDetails = unlocked.map((ua) => {
-      const achievement = unlockedDetails.find(
-        (a) => a.id === ua.achievementId,
-      );
-      return {
-        ...achievement.toObject(),
-        dateDeblocage: ua.dateDeblocage,
-      };
-    });
+    const unlockedWithDetails = unlocked
+      .map((ua) => {
+        const achievement = unlockedDetails.find(
+          (a) => a.id === ua.achievementId,
+        );
+        if (!achievement) {
+          console.warn(`⚠️ Achievement ${ua.achievementId} non trouvé`);
+          return null;
+        }
+        return {
+          ...achievement.toObject(),
+          dateDeblocage: ua.dateDeblocage,
+        };
+      })
+      .filter((a) => a !== null);
 
-    const inProgressWithDetails = inProgress.map((ua) => {
-      const achievement = inProgressDetails.find(
-        (a) => a.id === ua.achievementId,
-      );
-      return {
-        ...achievement.toObject(),
-        progression: ua.progression,
-        progressionActuelle: ua.progressionActuelle,
-        progressionRequise: ua.progressionRequise,
-      };
-    });
+    const inProgressWithDetails = inProgress
+      .map((ua) => {
+        const achievement = inProgressDetails.find(
+          (a) => a.id === ua.achievementId,
+        );
+        if (!achievement) {
+          console.warn(`⚠️ Achievement ${ua.achievementId} non trouvé`);
+          return null;
+        }
+        return {
+          ...achievement.toObject(),
+          progression: ua.progression,
+          progressionActuelle: ua.progressionActuelle,
+          progressionRequise: ua.progressionRequise,
+        };
+      })
+      .filter((a) => a !== null);
 
     return {
       unlocked: unlockedWithDetails,

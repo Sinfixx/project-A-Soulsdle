@@ -36,6 +36,12 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: 'achievements',
+    loadComponent: () =>
+      import('./features/stats/achievement/achievement').then((m) => m.AchievementComponent),
+    canActivate: [authGuard],
+  },
+  {
     path: 'player/:id',
     loadComponent: () => import('./features/stats/player/player').then((m) => m.Player),
     canActivate: [authGuard],

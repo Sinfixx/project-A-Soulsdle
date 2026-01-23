@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Api } from '../../services/api';
 import { GameState } from '../../services/game-state';
 import { Boss, GuessResponse } from '../../models/boss.model';
+import { AchievementService } from '../../services/achievement';
 
 @Component({
   selector: 'app-game',
@@ -28,7 +29,11 @@ export class Game {
     return allBoss.filter((bossName) => !triedBoss.includes(bossName));
   });
 
-  constructor(private api: Api, public gameState: GameState) {
+  constructor(
+    private api: Api,
+    public gameState: GameState,
+    private achievementService: AchievementService,
+  ) {
     this.loadBossNames();
   }
 
@@ -84,6 +89,21 @@ export class Game {
 
             if (guessResponse.correct) {
               this.victoryBoss.set(bossData);
+
+              // Vérifier les achievements après une victoire
+              this.achievementService.checkAllAchievements().subscribe({
+                next: (achievementResponse) => {
+                  if (achievementResponse.newAchievements.length > 0) {
+                    console.log(
+                      'Nouveaux achievements débloqués:',
+                      achievementResponse.newAchievements,
+                    );
+                    // Les achievements sont notifiés via le BehaviorSubject du service
+                  }
+                },
+                error: (err) => console.error('Erreur vérification achievements:', err),
+              });
+
               setTimeout(() => {
                 this.showVictory.set(true);
                 this.createConfetti();
